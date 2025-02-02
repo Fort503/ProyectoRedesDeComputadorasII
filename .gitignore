@@ -1,0 +1,62 @@
+# Ignorar la carpeta node_modules
+/node_modules
+
+# Ignorar la carpeta vendor (dependencias de Composer)
+/vendor
+
+# Ignorar el archivo .env (variables de entorno)
+/.env
+
+# Ignorar archivos de configuración local
+/.idea
+/.vscode
+
+# Ignorar archivos de almacenamiento y caché
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+!/storage/framework/cache/.gitkeep
+!/storage/framework/sessions/.gitkeep
+!/storage/framework/views/.gitkeep
+!/storage/logs/.gitkeep
+
+# Ignorar archivos de compilación de frontend
+/public/css
+/public/js
+/public/hot
+/public/storage
+/public/mix-manifest.json
+
+# Ignorar archivos de configuración de IDE
+.idea
+*.sublime-workspace
+*.sublime-project
+
+# Ignorar archivos de depuración y logs
+*.log
+*.sqlite
+
+# Ignorar archivos de entorno de desarrollo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignorar archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de Composer
+/composer.lock
+
+# Ignorar archivos de npm/yarn
+/package-lock.json
+/yarn.lock
+
+# Ignorar archivos de pruebas
+/coverage
+/.phpunit.result.cache
+
+# Ignorar archivos de configuración local de Laravel Sail
+docker-compose.override.yml
