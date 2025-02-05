@@ -32,3 +32,8 @@ El objetivo principal de este proyecto es aplicar los conceptos aprendidos en la
 
 ![App Screenshot](https://github.com/Fort503/ProyectoRedesDeComputadorasII/blob/main/images/game.png?raw=true)
 
+
+## Authors
+
+- [@Christopher Moz](https://github.com/Fort503)
+
