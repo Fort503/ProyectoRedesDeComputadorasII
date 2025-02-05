@@ -6,6 +6,9 @@ const Juego = (() => {
     let cartaOculta;
     let mazo = [];
     let puedePedir = true;
+    let banca = 1000;
+    let apuesta = 0;
+    let apuestaModal = document.getElementById("modal-overlay");
 
     const VALORES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
     const TIPOS = ["C", "D", "H", "S"];
@@ -13,8 +16,44 @@ const Juego = (() => {
     const inicializar = () => {
         construirMazo();
         barajarMazo();
-        iniciarJuego();
+        hacerApuesta()
     };
+
+    const hacerApuesta = () => {
+        apuestaModal.classList.remove("hidden");
+        const bancaSpan = document.getElementById("banca");
+        const botonApuesta = document.getElementById("apostar");
+        const inputApuesta = document.getElementById("apuesta");
+    
+        bancaSpan.innerText = banca;
+    
+        botonApuesta.replaceWith(botonApuesta.cloneNode(true));
+        const nuevoBotonApuesta = document.getElementById("apostar");
+    
+        nuevoBotonApuesta.addEventListener("click", () => {
+            const apuestaIngresada = parseInt(inputApuesta.value);
+    
+            if (isNaN(apuestaIngresada) || apuestaIngresada <= 0) {
+                alert("Ingresa una apuesta válida.");
+                return;
+            }
+    
+            if (apuestaIngresada > banca) {
+                alert("No tienes suficiente dinero.");
+                return;
+            }
+    
+            apuesta = apuestaIngresada;
+            banca -= apuesta;
+            apuestaModal.classList.add("hidden");
+    
+            iniciarJuego(); 
+        });
+    };
+    
+    document.getElementById("cobrar-salir").addEventListener("click", () => {
+        window.location.href = "/";
+    });
 
     const construirMazo = () => {
         for (let tipo of TIPOS) {
@@ -106,20 +145,25 @@ const Juego = (() => {
     const determinarResultado = () => {
         sumaCrupier = reducirAs(sumaCrupier, contadorAsCrupier);
         sumaJugador = reducirAs(sumaJugador, contadorAsJugador);
+        console.log(apuesta);
 
         let mensaje = "";
         if (sumaJugador > 21) {
             mensaje = "¡Perdiste!";
         } else if (sumaCrupier > 21) {
             mensaje = "¡Ganaste!";
+            banca += apuesta * 2;
         } else if (sumaJugador === sumaCrupier) {
             mensaje = "¡Empate!";
+            banca += apuesta;
         } else if (sumaJugador > sumaCrupier) {
             mensaje = "¡Ganaste!";
+            banca += apuesta * 2;
         } else {
             mensaje = "¡Perdiste!";
         }
 
+        apuesta = 0;
         mostrarPantallaResultado(mensaje);
     };
 
