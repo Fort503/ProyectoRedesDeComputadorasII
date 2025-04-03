@@ -12,7 +12,7 @@
                     <p class="text-lg mb-4">¡Bienvenido, {{ Auth::user()->name }}!</p>
 
                     <a href="{{ route('juego') }}" class="bg-blue-500 text-black px-4 py-2 rounded-lg hover:bg-blue-600">
-                        Jugar al Juego
+                        Jugar
                     </a>
                 </div>
             </div>
