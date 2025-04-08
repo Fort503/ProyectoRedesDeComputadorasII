@@ -38,3 +38,5 @@ El objetivo principal de este proyecto es aplicar los conceptos aprendidos en la
 - [@Christopher Moz](https://github.com/Fort503)
 - [@Snaider_Granadino](https://github.com/Snaider777)
 - [@Nayeli Guzmán](https://github.com/nayels23)
+- [@Daniel_Canizalez](https://github.com/danielcm-11)
+
