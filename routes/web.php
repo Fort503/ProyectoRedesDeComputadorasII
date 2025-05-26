@@ -21,4 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/guardar-puntuacion', [JuegoController::class, 'guardarPuntuacion'])->middleware('auth')->name('guardar.puntuacion');
     Route::get('/play', [JuegoController::class, 'index'])->name('juego');
+    Route::post('/guardar-partida', [JuegoController::class, 'guardarPartida'])->middleware('auth');
+
 });

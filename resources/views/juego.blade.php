@@ -6,6 +6,7 @@
     <title>Blackjack en Laravel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('juego/style.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         var cardsUrl = "{{ asset('juego/cards') }}/";
     </script>
@@ -56,8 +57,17 @@
             <p id="resultado-mensaje" class="text-xl font-semibold text-yellow-300 mb-4"></p>
             <p class="text-lg">Suma Crupier: <span id="dealer-sum-final" class="font-semibold text-yellow-300"></span></p>
             <p class="text-lg">Suma Jugador: <span id="your-sum-final" class="font-semibold text-yellow-300"></span></p>
-            <button onclick="Juego.inicializar()" class="bg-red-600 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">Jugar de Nuevo</button>
+            
+            <div class="flex justify-center gap-4 mt-6">
+                <button onclick="Juego.inicializar()" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
+                    Jugar de Nuevo
+                </button>
+                <a href="{{ route('welcome') }}" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                    Salir al Inicio
+                </a>
+            </div>
         </div>
+
 
         <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center h-full w-full">
             <div id="apuesta-container" class="max-w-4xl bg-green-800 p-6 rounded-lg shadow-lg text-white text-center w-1/4 ">
@@ -66,7 +76,7 @@
                     Tienes un total de <span id="banca" class="font-semibold text-yellow-300"></span> monedas
                 </p>
                 <input type="number" id="apuesta"
-                    class="w-24 h-10 bg-green-700 text-white rounded-lg mt-4 p-2 w-full"
+                    class="h-10 bg-green-700 text-white rounded-lg mt-4 p-2 w-full"
                     placeholder="Apuesta">
                 <div class="flex justify-center gap-4 mt-4">
                     <button id="apostar"

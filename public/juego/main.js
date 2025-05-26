@@ -10,6 +10,9 @@ const Juego = (() => {
     let apuesta = 0;
     let apuestaModal = document.getElementById("modal-overlay");
 
+    let partidasJugadas = 0;
+    const MAX_PARTIDAS = 5;
+
     const VALORES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
     const TIPOS = ["C", "D", "H", "S"];
 
@@ -20,37 +23,42 @@ const Juego = (() => {
     };
 
     const hacerApuesta = () => {
+        if (partidasJugadas >= MAX_PARTIDAS) {
+            mostrarPantallaResultado("¡Has alcanzado el límite de partidas!");
+            return;
+        }
+
         apuestaModal.classList.remove("hidden");
         const bancaSpan = document.getElementById("banca");
         const botonApuesta = document.getElementById("apostar");
         const inputApuesta = document.getElementById("apuesta");
-    
+
         bancaSpan.innerText = banca;
-    
+
         botonApuesta.replaceWith(botonApuesta.cloneNode(true));
         const nuevoBotonApuesta = document.getElementById("apostar");
-    
+
         nuevoBotonApuesta.addEventListener("click", () => {
             const apuestaIngresada = parseInt(inputApuesta.value);
-    
+
             if (isNaN(apuestaIngresada) || apuestaIngresada <= 0) {
                 alert("Ingresa una apuesta válida.");
                 return;
             }
-    
+
             if (apuestaIngresada > banca) {
                 alert("No tienes suficiente dinero.");
                 return;
             }
-    
+
             apuesta = apuestaIngresada;
             banca -= apuesta;
             apuestaModal.classList.add("hidden");
-    
+
             iniciarJuego(); 
         });
     };
-    
+
     document.getElementById("cobrar-salir").addEventListener("click", () => {
         window.location.href = "/";
     });
@@ -71,6 +79,7 @@ const Juego = (() => {
     };
 
     const iniciarJuego = () => {
+        partidasJugadas++;
         resetearJuego();
         cartaOculta = mazo.pop();
         sumaCrupier += obtenerValor(cartaOculta);
@@ -145,7 +154,6 @@ const Juego = (() => {
     const determinarResultado = () => {
         sumaCrupier = reducirAs(sumaCrupier, contadorAsCrupier);
         sumaJugador = reducirAs(sumaJugador, contadorAsJugador);
-        console.log(apuesta);
 
         let mensaje = "";
         if (sumaJugador > 21) {
@@ -163,8 +171,24 @@ const Juego = (() => {
             mensaje = "¡Perdiste!";
         }
 
-        apuesta = 0;
         mostrarPantallaResultado(mensaje);
+
+        fetch('/guardar-partida', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                puntos_jugador: sumaJugador,
+                puntos_crupier: sumaCrupier,
+                resultado: mensaje === "¡Ganaste!" ? "ganado" : (mensaje === "¡Empate!" ? "empate" : "perdido"),
+                apuesta: apuesta,
+                banca_final: banca
+            })
+        });
+
+        apuesta = 0;
     };
 
     const mostrarPantallaResultado = (mensaje) => {
@@ -208,7 +232,6 @@ const Juego = (() => {
         const sumaCrupierTexto = puedePedir ? `${sumaVisibleCrupier} + ?` : reducirAs(sumaCrupier, contadorAsCrupier);
 
         document.getElementById("dealer-sum").innerText = `${sumaCrupierTexto}`;
-
         document.getElementById("your-sum").innerText = `${reducirAs(sumaJugador, contadorAsJugador)}`;
     };
 
