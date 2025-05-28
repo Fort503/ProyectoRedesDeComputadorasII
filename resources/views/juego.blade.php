@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackjack en Laravel</title>
+    <title>Blackjack</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('juego/style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -29,7 +29,7 @@
     </nav>
 
     <div class="container mx-auto p-4">
-        <h1 class="text-3xl text-white font-semibold text-center mb-6 p-2">Blackjack en Laravel</h1>
+        <h1 class="text-3xl text-white font-semibold text-center mb-6 p-2">Blackjack</h1>
 
         <div id="game-container" class="max-w-4xl mx-auto bg-green-800 p-6 rounded-lg shadow-lg text-white">
             <div class="flex justify-between mb-4">
@@ -57,6 +57,9 @@
             <p id="resultado-mensaje" class="text-xl font-semibold text-yellow-300 mb-4"></p>
             <p class="text-lg">Suma Crupier: <span id="dealer-sum-final" class="font-semibold text-yellow-300"></span></p>
             <p class="text-lg">Suma Jugador: <span id="your-sum-final" class="font-semibold text-yellow-300"></span></p>
+            <p id="manos-restantes-final" class="text-lg text-white mt-2"></p>
+            <p id="banca-actual-final" class="text-lg text-white mt-2 font-semibold"></p>
+
             
             <div class="flex justify-center gap-4 mt-6">
                 <button onclick="Juego.inicializar()" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">

@@ -24,7 +24,7 @@ const Juego = (() => {
 
     const hacerApuesta = () => {
         if (partidasJugadas >= MAX_PARTIDAS) {
-            mostrarPantallaResultado("¡Has alcanzado el límite de partidas!");
+            mostrarPantallaResultado("¡Has alcanzado el límite de manos por partida!");
             return;
         }
 
@@ -197,6 +197,8 @@ const Juego = (() => {
         document.getElementById("resultado-mensaje").innerText = mensaje;
         document.getElementById("dealer-sum-final").innerText = sumaCrupier;
         document.getElementById("your-sum-final").innerText = sumaJugador;
+        document.getElementById("manos-restantes-final").innerText = `Te quedan ${MAX_PARTIDAS - partidasJugadas} mano(s)`;
+        document.getElementById("banca-actual-final").innerText = `Banca actual: $${banca}`;
     };
 
     const mostrarCarta = (carta, contenedor) => {
