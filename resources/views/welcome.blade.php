@@ -11,9 +11,24 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-yellow-300">Blackjack</a>
             <div class="space-x-4">
-                <a href="{{ route('login') }}" class="text-white hover:text-yellow-300">Iniciar Sesión</a>
-                <a href="{{ route('register') }}" class="text-white hover:text-yellow-300">Registrarse</a>
-                <a href="{{ route('juego') }}" class="bg-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-600">Jugar</a>
+                @auth
+                    <span class="text-yellow-300 font-semibold">Hola, {{ Auth::user()->name }}</span>
+
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600">
+                            Cerrar Sesión
+                        </button>
+                    </form>
+
+                    <a href="{{ route('juego') }}" class="bg-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-600">Jugar</a>
+                @endauth
+
+                @guest
+                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300">Iniciar Sesión</a>
+                    <a href="{{ route('register') }}" class="text-white hover:text-yellow-300">Registrarse</a>
+                    <a href="{{ route('juego') }}" class="bg-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-600">Jugar</a>
+                @endguest
             </div>
         </div>
     </nav>
