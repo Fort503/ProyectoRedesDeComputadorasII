@@ -9,7 +9,7 @@
 <body class="bg-green-950 text-white font-sans">
     <nav class="bg-green-800 p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-yellow-300">Blackjack</a>
+            <a href="#" class="text-2xl font-bold text-yellow-300">Blackjack prueba de commit</a>
             <div class="space-x-4">
                 <a href="{{ route('login') }}" class="text-white hover:text-yellow-300">Iniciar Sesión</a>
                 <a href="{{ route('register') }}" class="text-white hover:text-yellow-300">Registrarse</a>
