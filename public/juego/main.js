@@ -9,6 +9,13 @@ const Juego = (() => {
     let banca = 1000;
     let apuesta = 0;
     let apuestaModal = document.getElementById("modal-overlay");
+    let ganadas = 0;
+    let perdidas = 0;
+    let empates = 0;
+    let apuestasTotales = 0;
+    let apuestasGanadas = 0;
+    let apuestasPerdidas = 0;
+
 
     let partidasJugadas = 0;
     const MAX_PARTIDAS = 5;
@@ -60,7 +67,28 @@ const Juego = (() => {
     };
 
     document.getElementById("cobrar-salir").addEventListener("click", () => {
-        window.location.href = "/";
+            fetch('/guardar-partida', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                partidas_jugadas: partidasJugadas,
+                ganadas: ganadas,
+                perdidas: perdidas,
+                empates: empates,
+                banca_final: banca,
+                apuestas_totales: apuestasTotales,
+                apuestas_ganadas: apuestasGanadas,
+                apuestas_perdidas: apuestasPerdidas
+            })
+        }).then(() => {
+            console.log("Partida guardada exitosamente.");
+            window.location.href = '/';
+        }).catch((error) => {
+            console.error("Error al guardar la partida:", error);
+        });
     });
 
     const construirMazo = () => {
@@ -158,36 +186,30 @@ const Juego = (() => {
         let mensaje = "";
         if (sumaJugador > 21) {
             mensaje = "¡Perdiste!";
+            perdidas++;
+            apuestasPerdidas += apuesta;
         } else if (sumaCrupier > 21) {
             mensaje = "¡Ganaste!";
+            ganadas++;
+            apuestasGanadas += apuesta * 2;
             banca += apuesta * 2;
         } else if (sumaJugador === sumaCrupier) {
             mensaje = "¡Empate!";
+            empates++;
             banca += apuesta;
         } else if (sumaJugador > sumaCrupier) {
             mensaje = "¡Ganaste!";
+            ganadas++;
+            apuestasGanadas += apuesta * 2;
             banca += apuesta * 2;
         } else {
             mensaje = "¡Perdiste!";
+            perdidas++;
+            apuestasPerdidas += apuesta;
         }
 
-        mostrarPantallaResultado(mensaje);
-
-        fetch('/guardar-partida', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                puntos_jugador: sumaJugador,
-                puntos_crupier: sumaCrupier,
-                resultado: mensaje === "¡Ganaste!" ? "ganado" : (mensaje === "¡Empate!" ? "empate" : "perdido"),
-                apuesta: apuesta,
-                banca_final: banca
-            })
-        });
-
+        apuestasTotales += apuesta;
+        mostrarPantallaResultado(mensaje)
         apuesta = 0;
     };
 
@@ -236,6 +258,7 @@ const Juego = (() => {
         document.getElementById("dealer-sum").innerText = `${sumaCrupierTexto}`;
         document.getElementById("your-sum").innerText = `${reducirAs(sumaJugador, contadorAsJugador)}`;
     };
+
 
     return {
         inicializar,
