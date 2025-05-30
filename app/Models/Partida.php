@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Partida extends Model
 {
-    protected $fillable = [
+        protected $fillable = [
         'user_id',
-        'puntos_jugador',
-        'puntos_crupier',
-        'resultado',
-        'apuesta',
+        'manos_jugadas',
+        'ganadas',
+        'perdidas',
+        'empates',
+        'banca_inicial',
         'banca_final',
+        'apuestas_totales',
+        'apuestas_ganadas',
+        'apuestas_perdidas',
+        'resultado_general',
     ];
+
 
     public function user(): BelongsTo
     {
