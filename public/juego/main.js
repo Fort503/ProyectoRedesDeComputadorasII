@@ -147,9 +147,17 @@ const Juego = (() => {
     };
 
     const mostrarCartaOculta = () => {
-        document.getElementById("hidden").src = obtenerImagenCarta(cartaOculta);
-        actualizarSumas();
+        const image = document.getElementById("hidden");
+        image.classList.add("flip-anim");
+
+        setTimeout(() => {
+            image.src = obtenerImagenCarta(cartaOculta);
+        }, 300); 
+        setTimeout(() => {
+            image.classList.remove("flip-anim");
+        }, 600);
     };
+
 
     const determinarResultado = () => {
         sumaCrupier = reducirAs(sumaCrupier, contadorAsCrupier);
