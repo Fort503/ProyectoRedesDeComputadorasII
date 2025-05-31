@@ -188,6 +188,10 @@
           <input type="number" id="apuesta"
             class="h-10 bg-green-700 text-white rounded-lg mt-4 p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
             placeholder="Apuesta">
+            <!--<label class="cursor-pointer">
+              <input type="radio" name="ficha" class="hidden">
+              <img src="{{ asset('juego/cards/BACK.png') }}" :class="{ 'ring-4 ring-yellow-400': selected === 'as' }" class="w-24 h-36 rounded-lg hover:scale-105 transition-all">
+            </label>-->
           <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
             <button id="apostar"
               class="bg-yellow-500 text-white py-2 px-4 w-full sm:w-1/2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-300">
