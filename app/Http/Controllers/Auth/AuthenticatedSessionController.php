@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -23,25 +24,35 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+{
+    $request->authenticate();
+    $request->session()->regenerate();
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('juego'));
+    if ($request->filled('remember')) {
+        // Guardar cookies 30 días
+        return redirect()->intended(route('juego'))
+            ->withCookie(cookie('remembered_email', $request->email, 43200))
+            ->withCookie(cookie('remember_me', true, 43200));
     }
+
+    // Si NO marcó recordarme, no creamos cookies
+    return redirect()->intended(route('juego'))
+        ->withoutCookie('remembered_email')
+        ->withoutCookie('remember_me');
+}
+
 
     /**
      * Destroy an authenticated session.
      */
     public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+{
+    Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
+    // Solo redirige, sin tocar cookies
+    return redirect('/');
+}
 }

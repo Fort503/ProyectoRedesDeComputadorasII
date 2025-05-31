@@ -16,7 +16,9 @@ const Juego = (() => {
     let apuestasGanadas = 0;
     let apuestasPerdidas = 0;
 
-
+    //apuesta minima
+    //doblar apuesta
+    //icono 
     let partidasJugadas = 0;
     const MAX_PARTIDAS = 5;
 
