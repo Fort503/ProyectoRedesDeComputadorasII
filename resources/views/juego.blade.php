@@ -26,7 +26,7 @@
   <!-- Contenido principal oculto hasta que cargue -->
   <div id="contenido" class="hidden">
     <!-- Navbar -->
-    <nav x-data="{ open: false }" class="bg-green-800 p-4 shadow-lg">
+    <nav x-data="{ open: false }" class=" p-4 shadow-lg">
       <div class="container mx-auto flex items-center justify-between">
         <!-- Logo a la izquierda -->
         <a href="{{ route('welcome') }}"
@@ -129,20 +129,17 @@
         </div>
       </div>
     </nav>
-      <section class="hero-texts container mx-auto">
+      <section class="hero-texts container mx-auto mt-6">
         <img
           src="{{ asset('juego/texts/USO BlackJack.png') }}"
           alt="USO BlackJack"
-        />
-        <img
-          src="{{ asset('juego/texts/El repartidor debe plantarse en .png') }}"
-          alt="Instrucciones del repartidor"
+          class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-4/12"
         />
       </section>
       <!-- Sección del juego -->
       <div id="game-container" class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg text-white animate-fade-in flex flex-col items-center">
         <!-- Sección del Crupier -->
-        <div class="text-center mb-6">
+        <div class="text-center">
           <h2 class="text-xl font-bold">
             Repartidor: <span id="dealer-sum" class="font-semibold text-yellow-300"></span>
           </h2>
@@ -150,10 +147,21 @@
             <img src="{{ asset('juego/cards/BACK.png') }}" alt="Carta Oculta" id="hidden" class="w-16 h-24 rounded-lg transition-transform duration-300 hover:scale-105">
           </div>
         </div>
-        <!-- Línea divisoria -->
-        <hr class="w-full border-t border-yellow-500 my-4">
+        <div class="mb-4 w-full flex justify-center">
+          <img
+            src="{{ asset('juego/texts/El repartidor debe plantarse en .png') }}"
+            alt="Instrucciones del repartidor"
+            class="mx-auto
+                  w-full                     /* 100% ancho del padre en móvil */
+                  max-w-md sm:max-w-lg       /* 28rem en móvil, 32rem en ≥640px  */
+                  md:max-w-xl                /* 36rem en ≥768px */
+                  lg:max-w-2xl               /* 42rem en ≥1024px */
+                  xl:max-w-4xl               /* 56rem en ≥1280px */
+                  "
+          />
+        </div>
         <!-- Sección del Jugador -->
-        <div class="text-center mt-6">
+        <div class="text-center mt-2">
           <h2 class="text-xl font-bold">
             Jugador: <span id="your-sum" class="font-semibold text-yellow-300"></span>
           </h2>
