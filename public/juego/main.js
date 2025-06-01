@@ -234,11 +234,19 @@ const Juego = (() => {
     };
 
     const mostrarCarta = (carta, contenedor) => {
+        const container = document.getElementById(contenedor);
         const imagenCarta = document.createElement("img");
         imagenCarta.src = obtenerImagenCarta(carta);
         imagenCarta.classList.add("w-16", "h-24", "rounded-lg");
-        document.getElementById(contenedor).appendChild(imagenCarta);
+
+        // Si ya hay alguna carta, asignar margen negativo de forma manual
+        if (container.children.length > 0) {
+            imagenCarta.style.marginLeft = "-5rem"; // Ajusta el valor
+        }
+        
+        container.appendChild(imagenCarta);
     };
+
 
     const obtenerImagenCarta = (carta) => {
         return cardsUrl + carta + ".png";

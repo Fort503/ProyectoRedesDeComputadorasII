@@ -10,9 +10,18 @@
   <script>
     var cardsUrl = "{{ asset('juego/cards') }}/";
   </script>
+  <style>
+  body.game-bg {
+    background-image: url('{{ asset("juego/tables/green carpet.png") }}');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  </style>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-green-950 text-gray-800 font-sans">
+<body class="game-bg bg-green-950 text-gray-800 font-sans relative">
   <x-loading/>
   <!-- Contenido principal oculto hasta que cargue -->
   <div id="contenido" class="hidden">
@@ -120,13 +129,18 @@
         </div>
       </div>
     </nav>
-    <!-- Contenedor principal del juego -->
-    <div class="container mx-auto p-4">
-      <h1 class="text-3xl text-white font-semibold text-center mb-6 p-2">
-        Blackjack
-      </h1>
+      <section class="hero-texts container mx-auto">
+        <img
+          src="{{ asset('juego/texts/USO BlackJack.png') }}"
+          alt="USO BlackJack"
+        />
+        <img
+          src="{{ asset('juego/texts/El repartidor debe plantarse en .png') }}"
+          alt="Instrucciones del repartidor"
+        />
+      </section>
       <!-- Sección del juego -->
-      <div id="game-container" class="max-w-4xl mx-auto bg-green-800 p-6 rounded-lg shadow-lg text-white animate-fade-in flex flex-col items-center">
+      <div id="game-container" class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg text-white animate-fade-in flex flex-col items-center">
         <!-- Sección del Crupier -->
         <div class="text-center mb-6">
           <h2 class="text-xl font-bold">
@@ -143,7 +157,9 @@
           <h2 class="text-xl font-bold">
             Jugador: <span id="your-sum" class="font-semibold text-yellow-300"></span>
           </h2>
-          <div id="your-cards" class="flex flex-wrap gap-x-2 justify-center"></div>
+          <div class="overflow-x-auto">
+            <div id="your-cards" class="flex justify-center"></div>
+          </div>
         </div>
         <!-- Botones de acción -->
         <div class="flex justify-center gap-4 mt-6">

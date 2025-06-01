@@ -3,7 +3,10 @@
         <!-- Contenedor del formulario -->
         <div class="bg-gray-800 bg-opacity-75 backdrop-blur-md rounded-2xl shadow-xl w-full max-w-md p-8 animate-fade-in">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-extrabold text-yellow-300">Iniciar Sesión</h2>
+                <a href="{{ route('welcome') }}" class="text-4xl font-bold text-yellow-300 hover:text-yellow-400 transition-colors duration-300 ease-in-out">
+                    Blackjack
+                </a>
+                <h2 class="text-2xl font-extrabold text-white">Iniciar Sesión</h2>
                 <p class="text-green-300">Ingresa y comienza la partida</p>
             </div>
 
@@ -15,7 +18,7 @@
 
                     <!-- Email -->
                     <div>
-                    <x-input-label for="email" :value="__('Email')" class="text-green-200" />
+                    <x-input-label for="email" :value="__('Correo')" class="text-green-200" />
                     <x-text-input
                         id="email"
                         type="email"
@@ -33,7 +36,7 @@
 
                     <!-- Password -->
                     <div>
-                    <x-input-label for="password" :value="__('Password')" class="text-green-200" />
+                    <x-input-label for="password" :value="__('Contraseña')" class="text-green-200" />
                     <x-text-input
                         id="password"
                         type="password"
@@ -61,11 +64,17 @@
                     </label>
                     </div>
 
-                    <div class="flex items-center justify-end mt-4">
-                    <x-primary-button class="bg-green-600 hover:bg-yellow-500 text-gray-900 font-bold px-4 py-2 
-                                            rounded-md shadow-lg transition-all hover:scale-105">
-                        {{ __('Iniciar Sesión') }}
-                    </x-primary-button>
+                    <div class="font-sans flex flex-col md:flex-row items-center justify-end mt-4 space-y-2 md:space-y-0 md:space-x-4">
+                        <a href="{{ route('register') }}"
+                            class="text-white w-full md:w-auto bg-green-600 hover:bg-yellow-500  px-4 py-2 
+                                    rounded-md shadow-lg transition-all hover:scale-105 text-sm md:text-base text-center">
+                            Crear cuenta
+                        </a>
+                        <span class="text-white">o</span>
+                        <x-primary-button class=" text-white font-sans w-full md:w-auto bg-green-600 hover:bg-yellow-500 px-4 py-2 
+                                                rounded-md shadow-lg transition-all hover:scale-105 text-sm md:text-base">
+                            {{ __('Iniciar sesión') }}
+                        </x-primary-button>
                     </div>
                 </form>
         </div>
