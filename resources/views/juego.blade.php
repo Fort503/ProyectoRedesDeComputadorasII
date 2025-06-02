@@ -208,28 +208,28 @@
             Salir al Inicio
           </a>
         </div>
+        </div>
+        <section id="bet-panel"
+            class="fixed bottom-4 right-4 w-64 bg-green-800 rounded-lg shadow-lg p-4 text-white z-50">
+          <h3 class="text-lg font-bold mb-2">Tu Banca: <span id="panel-banca-2" class="text-yellow-300"></span></h3>
+          <div id="chips-available" class="grid grid-cols-3 gap-2 mb-4">
+            <!-- Aquí JS las fichas -->
+          </div>
+
+          <h4 class="font-semibold mb-1">Apuesta:</h4>
+          <div id="chips-bet" class="min-h-[3rem] bg-green-700 rounded p-2 flex flex-wrap gap-1 mb-4">
+            <!-- Fichas arrastradas o clicadas aquí -->
+            <span id="bet-empty" class="text-green-300 italic">Sin apuesta</span>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <button id="btn-confirm-bet"
+                    class="bg-yellow-500 text-gray-900 py-1 rounded hover:bg-yellow-600 disabled:opacity-50"
+                    disabled>Confirmar</button>
+          </div>
+        </section>
       </div>
-    </div>
   </div>
-  <section id="bet-panel"
-        class="fixed bottom-4 right-4 w-64 bg-green-800 rounded-lg shadow-lg p-4 text-white z-50">
-    <h3 class="text-lg font-bold mb-2">Tu Banca: <span id="panel-banca-2" class="text-yellow-300"></span></h3>
-    <div id="chips-available" class="grid grid-cols-3 gap-2 mb-4">
-      <!-- Aquí JS las fichas -->
-    </div>
-
-    <h4 class="font-semibold mb-1">Apuesta:</h4>
-    <div id="chips-bet" class="min-h-[3rem] bg-green-700 rounded p-2 flex flex-wrap gap-1 mb-4">
-      <!-- Fichas arrastradas o clicadas aquí -->
-      <span id="bet-empty" class="text-green-300 italic">Sin apuesta</span>
-    </div>
-
-    <div class="flex flex-col gap-2">
-      <button id="btn-confirm-bet"
-              class="bg-yellow-500 text-gray-900 py-1 rounded hover:bg-yellow-600 disabled:opacity-50"
-              disabled>Confirmar</button>
-    </div>
-  </section>
   <script src="{{ asset('juego/main.js') }}"></script>
 </body>
 </html>
