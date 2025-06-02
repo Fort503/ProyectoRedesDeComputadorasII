@@ -40,6 +40,7 @@ const Juego = (() => {
         action.classList.remove('flex');
 
         const btnDoblar = document.getElementById('btn-double-bet');
+        btnDoblar.classList.add('hidden');
         btnDoblar.disabled = true;
         construirMazo();
         barajarMazo();
@@ -186,7 +187,10 @@ const Juego = (() => {
         cartaOculta = mazo.pop();
         sumaCrupier += valorCarta(cartaOculta);
         contadorAsCrupier += esAs(cartaOculta);
-
+        const btnDoblar = document.getElementById('btn-double-bet');
+        btnDoblar.classList.remove('hidden');
+        btnDoblar.disabled = false;
+        puedeDoblar = true;
         while (sumaCrupier < 17) repartirCarta('dealer-cards', true);
 
         for (let i = 0; i < 2; i++) repartirCarta('your-cards', false);
