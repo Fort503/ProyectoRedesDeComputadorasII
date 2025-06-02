@@ -6,6 +6,7 @@ const Juego = (() => {
     let contadorAsCrupier = 0, contadorAsJugador = 0;
     let puedePedir = true;
     let betsBound = false; 
+    let hitHandler, stayHandler;
 
     // ─── ESTADO DE APUESTAS ────────────────────────────────────────────────────
     let banca = 1000;
@@ -30,6 +31,7 @@ const Juego = (() => {
     const chipsUrl = window.chipsUrl;
 
     // ─── INICIALIZACIÓN ────────────────────────────────────────────────────────
+    // Mueve los event listeners a la inicialización
     function inicializar() {
         apuestaSum = 0;
         betChips  = [];
@@ -46,6 +48,26 @@ const Juego = (() => {
         barajarMazo();
         renderAvailableChips();
         mostrarPanelApuestas();
+
+        // Elimina listeners anteriores si existen
+        const hitBtn = document.getElementById('hit');
+        const stayBtn = document.getElementById('stay');
+        
+        if (hitHandler) hitBtn.removeEventListener('click', hitHandler);
+        if (stayHandler) stayBtn.removeEventListener('click', stayHandler);
+
+        // Crea nuevos handlers
+        hitHandler = () => {
+            pedirCarta();
+            document.getElementById('btn-double-bet').classList.add('hidden');
+            puedeDoblar = false;
+        };
+        
+        stayHandler = plantarse;
+
+        // Añade los nuevos listeners
+        hitBtn.addEventListener('click', hitHandler);
+        stayBtn.addEventListener('click', stayHandler);
     }
 
     // ─── FUNCIONES DE MAZO ─────────────────────────────────────────────────────
@@ -195,17 +217,10 @@ const Juego = (() => {
 
         for (let i = 0; i < 2; i++) repartirCarta('your-cards', false);
 
-        document.getElementById('hit').addEventListener('click', () => {
-        pedirCarta();
-        // Al pedir cualquier carta, ya no se puede doblar
-        document.getElementById('btn-double-bet').classList.add('hidden');
-        puedeDoblar = false;
-        });
-        document.getElementById('stay').addEventListener('click', plantarse);
-
         puedeDoblar = true;
         updateBetButtons();
     }
+
 
     function resetearMesa() {
         sumaCrupier = sumaJugador = 0;
@@ -346,6 +361,15 @@ const Juego = (() => {
     updateBetButtons();
     document.getElementById('bet-panel').classList.remove('hidden');
     document.getElementById('panel-banca').innerText = banca;
+
+    // Limpia listeners
+    const hitBtn = document.getElementById('hit');
+    const stayBtn = document.getElementById('stay');
+    if (hitHandler) hitBtn.removeEventListener('click', hitHandler);
+    if (stayHandler) stayBtn.removeEventListener('click', stayHandler);
+    hitHandler = null;
+    stayHandler = null;
+
     }
     // ─── EXPOSICIÓN AL PUBLICO ─────────────────────────────────────────────────
     return { 
@@ -426,8 +450,8 @@ window.addEventListener('load', () => {
 
     // Conecta el botón de reinicio
     document.getElementById('btn-restart').addEventListener('click', () => {
-    Juego.reiniciarUI();
-    Juego.inicializar();
+        Juego.reiniciarUI();
+        Juego.inicializar();
     });
 
     document.getElementById('btn-salir').addEventListener('click', () => {

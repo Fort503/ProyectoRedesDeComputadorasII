@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Partida;
 
@@ -28,7 +28,7 @@ class JuegoController extends Controller
 
 
         Partida::create([
-            'user_id' => 1,
+            'user_id' => auth::id(),
             'manos_jugadas' => $request->partidas_jugadas,
             'ganadas' => $request->ganadas,
             'perdidas' => $request->perdidas,
