@@ -256,8 +256,8 @@ const Juego = (() => {
     function mostrarOculta() {
         const img = document.getElementById('hidden');
         img.classList.add('flip-anim');
-        setTimeout(() => img.src = valorImagen(cartaOculta), 300);
-        setTimeout(() => img.classList.remove('flip-anim'), 600);
+        setTimeout(() => img.src = valorImagen(cartaOculta), 6000);
+        setTimeout(() => img.classList.remove('flip-anim'), 7000);
     }
 
     // ─── RESOLUCIÓN ─────────────────────────────────────────────────────────────
@@ -317,7 +317,7 @@ const Juego = (() => {
         document.getElementById('your-sum').innerText =
         ajustarAs(sumaJugador, contadorAsJugador);
     }
-
+    
     function mostrarCarta(c, cont) {
         const contDiv = document.getElementById(cont);
         const img = document.createElement('img');
