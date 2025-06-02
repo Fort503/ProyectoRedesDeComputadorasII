@@ -19,6 +19,30 @@
     background-size: cover;
     background-attachment: fixed;
   }
+  @keyframes deal {
+    0% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .deal-anim {
+    animation: deal 0.5s ease-out forwards;
+  }
+
+  /* Flip a doble cara */
+  @keyframes flip {
+    0%   { transform: rotateY(0); }
+    50%  { transform: rotateY(90deg); }
+    100% { transform: rotateY(0); }
+  }
+  .flip-anim {
+    animation: flip 1s ease-in-out forwards;
+    transform-style: preserve-3d;
+  }
   </style>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

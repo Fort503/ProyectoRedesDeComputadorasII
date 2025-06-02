@@ -227,7 +227,13 @@ const Juego = (() => {
         } else {
         sumaJugador += valor; contadorAsJugador += isAs;
         }
-        mostrarCarta(carta, contenedor);
+        const contDiv = document.getElementById(contenedor);
+        const img = document.createElement('img');
+        img.src = valorImagen(carta);
+        img.classList.add("w-16", "h-24", "rounded-lg");
+        if (contDiv.children.length > 0) img.style.marginLeft = '-5rem';
+        img.classList.add('deal-anim');
+        contDiv.appendChild(img);
         actualizarSumas();
     }
 
