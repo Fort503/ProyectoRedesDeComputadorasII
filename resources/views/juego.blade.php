@@ -9,6 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
     var cardsUrl = "{{ asset('juego/cards') }}/";
+    var chipsUrl = "{{ asset('juego/chips') }}/";
   </script>
   <style>
   body.game-bg {
@@ -133,11 +134,11 @@
         <img
           src="{{ asset('juego/texts/USO BlackJack.png') }}"
           alt="USO BlackJack"
-          class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-4/12"
+          class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-6/12"
         />
       </section>
       <!-- Sección del juego -->
-      <div id="game-container" class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg text-white animate-fade-in flex flex-col items-center">
+      <div id="game-container" class="max-w-4xl mx-auto p-6 rounded-lg text-white animate-fade-in flex flex-col items-center">
         <!-- Sección del Crupier -->
         <div class="text-center">
           <h2 class="text-xl font-bold">
@@ -165,14 +166,20 @@
           <h2 class="text-xl font-bold">
             Jugador: <span id="your-sum" class="font-semibold text-yellow-300"></span>
           </h2>
+          <h3 class="text-lg font-bold mb-2">Tu Banca: <span id="panel-banca" class="text-yellow-300"></span></h3>
           <div class="overflow-x-auto">
             <div id="your-cards" class="flex justify-center"></div>
           </div>
         </div>
         <!-- Botones de acción -->
-        <div class="flex justify-center gap-4 mt-6">
-          <button id="hit" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-300">
+        <div id="action-buttons" class="hidden">
+          <button id="hit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-300">
             Pedir
+          </button>
+          <button id="btn-double-bet"
+            class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors duration-300 disabled:opacity-50"
+            disabled>
+            Doblar
           </button>
           <button id="stay" class="bg-yellow-600 text-white py-2 px-2 rounded-lg hover:bg-yellow-700 transition-colors duration-300">
             Quedarse
@@ -194,7 +201,7 @@
         <p id="manos-restantes-final" class="text-lg mt-2"></p>
         <p id="banca-actual-final" class="text-lg mt-2 font-semibold"></p>
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-          <button onclick="Juego.inicializar()" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-300">
+          <button id="btn-restart" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-300">
             Jugar de Nuevo
           </button>
           <a href="{{ route('welcome') }}" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition-colors duration-300">
@@ -202,35 +209,27 @@
           </a>
         </div>
       </div>
-      <!-- Modal de Apuesta -->
-      <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center h-full w-full">
-        <div id="apuesta-container" class="w-full max-w-lg bg-green-800 p-6 rounded-lg shadow-lg text-white text-center animate-fade-in">
-          <h2 class="text-2xl font-bold mb-4">Apuesta</h2>
-          <p class="text-lg">
-            Tienes un total de <span id="banca" class="font-semibold text-yellow-300"></span> monedas
-          </p>
-          <input type="number" id="apuesta"
-            class="h-10 bg-green-700 text-white rounded-lg mt-4 p-2 w-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            placeholder="Apuesta">
-            <!--<label class="cursor-pointer">
-              <input type="radio" name="ficha" class="hidden">
-              <img src="{{ asset('juego/cards/BACK.png') }}" :class="{ 'ring-4 ring-yellow-400': selected === 'as' }" class="w-24 h-36 rounded-lg hover:scale-105 transition-all">
-            </label>-->
-          <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
-            <button id="apostar"
-              class="bg-yellow-500 text-white py-2 px-4 w-full sm:w-1/2 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-colors duration-300">
-              Apostar
-            </button>
-            <button id="cobrar-salir"
-              class="bg-red-500 text-white py-2 px-4 w-full sm:w-1/2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-300">
-              Cobrar y Salir
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
-  <!-- Script principal del juego -->
+  <section id="bet-panel"
+        class="fixed bottom-4 right-4 w-64 bg-green-800 rounded-lg shadow-lg p-4 text-white z-50">
+    <h3 class="text-lg font-bold mb-2">Tu Banca: <span id="panel-banca-2" class="text-yellow-300"></span></h3>
+    <div id="chips-available" class="grid grid-cols-3 gap-2 mb-4">
+      <!-- Aquí JS las fichas -->
+    </div>
+
+    <h4 class="font-semibold mb-1">Apuesta:</h4>
+    <div id="chips-bet" class="min-h-[3rem] bg-green-700 rounded p-2 flex flex-wrap gap-1 mb-4">
+      <!-- Fichas arrastradas o clicadas aquí -->
+      <span id="bet-empty" class="text-green-300 italic">Sin apuesta</span>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <button id="btn-confirm-bet"
+              class="bg-yellow-500 text-gray-900 py-1 rounded hover:bg-yellow-600 disabled:opacity-50"
+              disabled>Confirmar</button>
+    </div>
+  </section>
   <script src="{{ asset('juego/main.js') }}"></script>
 </body>
 </html>
