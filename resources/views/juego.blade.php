@@ -228,9 +228,9 @@
           <button id="btn-restart" class="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors duration-300">
             Jugar de Nuevo
           </button>
-          <a href="{{ route('welcome') }}" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition-colors duration-300">
+          <button id="btn-salir" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition-colors duration-300">
             Salir al Inicio
-          </a>
+          </button>
         </div>
         </div>
         <section id="bet-panel"

@@ -28,7 +28,7 @@ class JuegoController extends Controller
 
 
         Partida::create([
-            'user_id' => auth()->id() ?? 1,
+            'user_id' => 1,
             'manos_jugadas' => $request->partidas_jugadas,
             'ganadas' => $request->ganadas,
             'perdidas' => $request->perdidas,
@@ -50,8 +50,6 @@ class JuegoController extends Controller
         if ($request->ganadas < $request->perdidas) return 'pérdida';
         return 'igual';
     }
-
-
 }
 
 

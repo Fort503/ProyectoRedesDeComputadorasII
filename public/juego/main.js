@@ -347,9 +347,78 @@ const Juego = (() => {
     document.getElementById('bet-panel').classList.remove('hidden');
     document.getElementById('panel-banca').innerText = banca;
     }
-    // ─── EXPONER PÚBLICO ─────────────────────────────────────────────────────────
-    return { inicializar, reiniciarUI };
+    // ─── EXPOSICIÓN AL PUBLICO ─────────────────────────────────────────────────
+    return { 
+        inicializar, 
+        reiniciarUI,
+        obtenerEstado: function() {
+            return {
+                banca,
+                ganadas,
+                perdidas,
+                empates,
+                partidasJugadas,
+                apuestasTotales,
+                apuestasGanadas,
+                apuestasPerdidas
+            };
+        }
+    };
 })();
+
+// ─── FUNCIÓN PARA GUARDAR PARTIDA ────────────────────────────────────────────
+async function guardarPartida(redirigir = false, urlRedireccion = '/') {
+    const estado = Juego.obtenerEstado(); 
+    
+    const loader = document.createElement('div');
+    loader.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    loader.innerHTML = '<div class="bg-white p-4 rounded-lg"><p>Guardando partida...</p></div>';
+    document.body.appendChild(loader);
+
+    try {
+        const response = await fetch('/guardar-partida', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({
+                partidas_jugadas: estado.partidasJugadas,
+                ganadas: estado.ganadas,
+                perdidas: estado.perdidas,
+                empates: estado.empates,
+                banca_final: estado.banca,
+                apuestas_totales: estado.apuestasTotales,
+                apuestas_ganadas: estado.apuestasGanadas,
+                apuestas_perdidas: estado.apuestasPerdidas
+            })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error HTTP:', response.status, errorText);
+            throw new Error('Error en la respuesta del servidor');
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || 'Error al guardar la partida');
+        }
+
+        if (redirigir && urlRedireccion) {
+            window.location.href = urlRedireccion;
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error al guardar partida:', error);
+        throw error;
+    } finally {
+        document.body.removeChild(loader);
+    }
+}
+
 
 // Arranca cuando la página esté lista
 window.addEventListener('load', () => {
@@ -360,4 +429,9 @@ window.addEventListener('load', () => {
     Juego.reiniciarUI();
     Juego.inicializar();
     });
+
+    document.getElementById('btn-salir').addEventListener('click', () => {
+        guardarPartida(true, '/');
+    });
 });
+
