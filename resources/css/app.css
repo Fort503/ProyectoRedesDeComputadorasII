@@ -16,14 +16,6 @@
         }
     }
 }
-body.game-bg {
-    background-image: url('{{ asset("juego/tables/red-carpet.png") }}');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    padding-top: 4rem;
-}
 
 .hero-texts {
     position: relative;

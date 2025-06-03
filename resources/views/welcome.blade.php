@@ -39,6 +39,9 @@
                         <a href="{{ route('juego') }}"class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-200 transform hover:scale-105">
                             Jugar
                         </a>
+                        <a href="{{ route('partidas') }}"class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-200 transform hover:scale-105">
+                            Ver puntuaciones
+                        </a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
                             <button type="submit"
@@ -84,6 +87,9 @@
                                     Cerrar Sesión
                                 </button>
                             </form>
+                            <a href="{{ route('partidas') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                                Ver puntuaciones
+                            </a>
                             <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
                                 Jugar
                             </a>

@@ -13,7 +13,7 @@
   </script>
   <style>
   body.game-bg {
-    background-image: url('{{ asset("juego/tables/green carpet.png") }}');
+    background-image: url('{{ asset("juego/tables/green-carpet.png") }}');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
