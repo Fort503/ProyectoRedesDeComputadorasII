@@ -60,7 +60,7 @@
         </a>
         <!-- Botón hamburguesa -->
         <button @click="open = !open"
-            class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 hover:bg-green-700 
+            class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 
             rounded-md focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200
             md:hidden" 
             :class="{ 'rotate-90': open }">
@@ -103,7 +103,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-4"
-        class="md:hidden mt-3 bg-green-700 rounded-lg shadow-inner overflow-hidden"
+        class="md:hidden mt-3 rounded-lg shadow-inner overflow-hidden"
       >
         <div class="flex flex-col divide-y divide-green-600">
           @auth

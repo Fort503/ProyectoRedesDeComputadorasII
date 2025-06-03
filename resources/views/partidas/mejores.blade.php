@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 10 Mejores Partidas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -11,6 +12,19 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
+        }
+        @keyframes deal {
+            0% {
+            transform: translateY(-100px);
+            opacity: 0;
+            }
+            100% {
+            transform: translateY(0);
+            opacity: 1;
+            }
+        }
+        .deal-anim {
+            animation: deal 0.5s ease-out forwards;
         }
     </style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -29,7 +43,7 @@
             </a>
             <!-- Botón hamburguesa -->
             <button @click="open = !open"
-                class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 hover:bg-green-700 
+                class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 
                 rounded-md focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200
                 md:hidden" 
                 :class="{ 'rotate-90': open }">
@@ -76,23 +90,23 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-4"
-            class="md:hidden mt-3 bg-green-700 rounded-lg shadow-inner overflow-hidden"
+            class="md:hidden mt-3 rounded-lg shadow-inner overflow-hidden"
         >
             <div class="flex flex-col divide-y divide-green-600">
             @auth
                 <a href="{{ route('welcome') }}"
-                    class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
+                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Inicio
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
-                    class="w-full text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
+                    class="w-full text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                     Cerrar Sesión
                 </button>
                 </form>
                 <a href="{{ route('juego') }}"
-                    class="text-left px-4 py-3 text-white hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
+                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Jugar
                 </a>
             @endauth
@@ -106,33 +120,37 @@
             class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-6/12"
             />
         </section>
-    <div class="container mx-auto px-4 py-8">
-
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full border border-gray-300 shadow-md rounded-lg">
+        <div class="container mx-auto px-4 py-8">
+            <div class="overflow-x-auto">
+            <div class="rounded-xl shadow-2xl backdrop-blur">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-yellow-400 text-center py-6 tracking-wide drop-shadow-lg">
+                🏆 Top 10 Mejores Partidas
+                </h2>
+                <table class="min-w-full divide-y divide-yellow-300">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-700">
-                        <th class="px-4 py-2 border">Jugador</th>
-                        <th class="px-4 py-2 border">Banca Final</th>
-                        <th class="px-4 py-2 border">Manos Jugadas</th>
-                        <th class="px-4 py-2 border">Ganadas</th>
-                        <th class="px-4 py-2 border">Perdidas</th>
+                    <tr class="bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 text-yellow-900">
+                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Jugador</th>
+                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Banca Final</th>
+                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Manos Jugadas</th>
+                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Ganadas</th>
+                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Perdidas</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($partidas as $partida)
-                        <tr class="text-center border-t hover:bg-gray-100">
-                            <td class="px-4 py-2 border">{{ $partida->user->name }}</td>
-                            <td class="px-4 py-2 border">{{ $partida->banca_final }}</td>
-                            <td class="px-4 py-2 border">{{ $partida->manos_jugadas }}</td>
-                            <td class="px-4 py-2 border">{{ $partida->ganadas }}</td>
-                            <td class="px-4 py-2 border">{{ $partida->perdidas }}</td>
-                        </tr>
+                    <tr class="text-center border-b border-yellow-200 hover:bg-yellow-50 transition-colors duration-150">
+                        <td class="px-3 py-2 text-sm md:text-base font-semibold text-yellow-300">{{ $partida->user->name }}</td>
+                        <td class="px-3 py-2 text-sm md:text-base text-green-300 font-bold">{{ $partida->banca_final }}</td>
+                        <td class="px-3 py-2 text-sm md:text-base text-blue-300">{{ $partida->manos_jugadas }}</td>
+                        <td class="px-3 py-2 text-sm md:text-base text-green-300 font-semibold">{{ $partida->ganadas }}</td>
+                        <td class="px-3 py-2 text-sm md:text-base text-red-300 font-semibold">{{ $partida->perdidas }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
-            </table>
+                </table>
+            </div>
+            </div>
         </div>
-    </div>
     </div>
 </body>
 </html>
