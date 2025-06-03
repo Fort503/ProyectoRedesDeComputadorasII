@@ -265,14 +265,18 @@ const Juego = (() => {
     function plantarse() {
         puedePedir = false;
         mostrarOculta();
-        setTimeout(determinarResultado, 500);
+        setTimeout(determinarResultado, 2000);
     }
 
     function mostrarOculta() {
         const img = document.getElementById('hidden');
         img.classList.add('flip-anim');
-        setTimeout(() => img.src = valorImagen(cartaOculta), 6000);
-        setTimeout(() => img.classList.remove('flip-anim'), 7000);
+        setTimeout(() => {
+            img.src = valorImagen(cartaOculta);
+        }, 600);
+        setTimeout(() => {
+            img.classList.remove('flip-anim');
+        }, 700); 
     }
 
     // ─── RESOLUCIÓN ─────────────────────────────────────────────────────────────
