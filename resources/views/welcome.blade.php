@@ -7,11 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-green-950 text-white font-sans animate-fade-in">
+<body class="text-white font-sans animate-fade-in" style="background-image: url('/juego/tables/red-carpet.png'); background-size: cover; background-position: center;">
     <x-loading/>
     <div id="contenido" class="hidden">
         <!-- Barra de navegación -->
-        <nav x-data="{ open: false }" class="bg-green-800 p-4 shadow-lg transition-all duration-300 ease-in-out">
+        <nav x-data="{ open: false }" class="p-4 shadow-lg transition-all duration-300 ease-in-out">
             <div class="container mx-auto flex items-center justify-between flex-wrap">
 
                 <!-- Logo -->
@@ -70,9 +70,9 @@
                     x-transition:leave="transition ease-in duration-200"
                     x-transition:leave-start="opacity-100 translate-y-0"
                     x-transition:leave-end="opacity-0 -translate-y-4"
-                    class="md:hidden w-full mt-3 bg-green-700 rounded-lg shadow-inner overflow-hidden"
+                    class="md:hidden w-full mt-3 bg-black/20 rounded-lg shadow-inner overflow-hidden"
                 >
-                    <div class="flex flex-col divide-y divide-green-600">
+                    <div class="flex flex-col divide-y divide-yellow-500">
                         @auth
                             <span class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
                                 Hola, {{ Auth::user()->name }}
@@ -107,15 +107,18 @@
 
         <!-- Contenido principal -->
         <div class="container mx-auto p-8 text-center animate-fade-in">
+            <div class="flex flex-row w-full items-center justify-center mb-5">
+                <img src="/juego/cards/A-H.png" alt="7-C" class="w-20" style="transform: rotateZ(-10deg);">
+                <img src="/juego/cards/3-C.png" alt="7-C" class="w-20" style="transform: rotateZ(10deg);">
+            </div>
             <h1 class="text-4xl font-bold text-yellow-300 mb-6 transition-transform transform hover:scale-105 duration-300">
-                Bienvenido al Blackjack
+                Bienvenido a USO Blackjack
             </h1>
-            <p class="text-lg mb-6">Aprende las reglas y prepárate para jugar.</p>
             
             <!-- Reglas del Blackjack -->
-            <div class="bg-green-800 p-6 rounded-lg shadow-lg max-w-3xl mx-auto transition-shadow hover:shadow-2xl duration-300">
+            <div class="p-2 rounded-lg max-w-lg mx-auto transition-shadow duration-300">
                 <h2 class="text-2xl font-semibold text-yellow-300 mb-4">Reglas del Blackjack</h2>
-                <ul class="text-left space-y-3 list-disc pl-5">
+                <ul class="bg-black/20 text-left space-y-3 list-disc marker:text-yellow-300 p-5 pl-10 rounded-xl">
                     <li>El objetivo es alcanzar una suma de 21 o acercarse sin pasarse.</li>
                     <li>Las cartas del 2 al 10 tienen su valor nominal.</li>
                     <li>Las cartas J, Q y K valen 10 puntos.</li>
