@@ -14,7 +14,7 @@
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-green-900 flex items-center justify-center">
+<body class="min-h-screen flex items-center justify-center" style="background-image: url('/juego/tables/blue carpet.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
   <x-loading/>
   <div id="contenido" class="hidden">
     {{ $slot }}

@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-green-900 p-6">
+    <div class="min-h-screen flex items-center justify-center p-6">
         <!-- Contenedor del formulario -->
-        <div class="bg-gray-800 bg-opacity-75 backdrop-blur-md rounded-2xl shadow-xl w-full max-w-md p-8 animate-fade-in">
+        <div class="bg-gray-800/70 border border-green-600 backdrop-blur-sm rounded-2xl shadow-xl w-full max-w-md p-8 animate-fade-in">
             <div class="text-center mb-6">
                 <a href="{{ route('welcome') }}" class="text-4xl font-bold text-yellow-300 hover:text-yellow-400 transition-colors duration-300 ease-in-out">
                     Blackjack

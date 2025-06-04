@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="text-white font-sans animate-fade-in" style="background-image: url('/juego/tables/red-carpet.png'); background-size: cover; background-position: center;">
+<body class="text-white font-sans animate-fade-in min-h-screen" style="background-image: url('/juego/tables/red-carpet.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
     <x-loading/>
     <div id="contenido" class="hidden">
         <!-- Barra de navegación -->
@@ -114,17 +114,18 @@
         <!-- Contenido principal -->
         <div class="container mx-auto p-8 text-center animate-fade-in">
             <div class="flex flex-row w-full items-center justify-center mb-5">
-                <img src="/juego/cards/A-H.png" alt="7-C" class="w-20" style="transform: rotateZ(-10deg);">
-                <img src="/juego/cards/3-C.png" alt="7-C" class="w-20" style="transform: rotateZ(10deg);">
+                <img src="/juego/cards/6-H.png" alt="7-C" class="w-20 rotate-[-10deg] hover:-translate-y-2 transition-transform duration-300">
+                <img src="/juego/cards/K-S.png" alt="7-C" class="w-20 absolute hover:-translate-y-2 transition-transform duration-300">
+                <img src="/juego/cards/5-D.png" alt="7-C" class="w-20 rotate-[10deg] hover:-translate-y-2 transition-transform duration-300">
             </div>
             <h1 class="text-4xl font-bold text-yellow-300 mb-6 transition-transform transform hover:scale-105 duration-300">
                 Bienvenido a USO Blackjack
             </h1>
             
             <!-- Reglas del Blackjack -->
-            <div class="p-2 rounded-lg max-w-lg mx-auto transition-shadow duration-300">
+            <div class="p-5 rounded-lg max-w-3xl mx-auto transition-shadow duration-300 bg-black/30 border border-yellow-400 backdrop-blur-sm">
                 <h2 class="text-2xl font-semibold text-yellow-300 mb-4">Reglas del Blackjack</h2>
-                <ul class="bg-black/20 text-left space-y-3 list-disc marker:text-yellow-300 p-5 pl-10 rounded-xl">
+                <ul class="text-left space-y-3 list-disc marker:text-yellow-300 pl-4">
                     <li>El objetivo es alcanzar una suma de 21 o acercarse sin pasarse.</li>
                     <li>Las cartas del 2 al 10 tienen su valor nominal.</li>
                     <li>Las cartas J, Q y K valen 10 puntos.</li>
