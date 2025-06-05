@@ -42,13 +42,14 @@
                 </div>
 
                 <div class="font-sans flex flex-col md:flex-row items-center justify-end mt-4 space-y-2 md:space-y-0 md:space-x-4">
+                    <x-primary-button class="text-white font-sans w-full md:w-auto bg-green-600 hover:bg-yellow-500 px-4 py-2 rounded-md shadow-lg transition-all hover:scale-105 text-sm md:text-base">
+                        {{ __('Registrarse') }}
+                    </x-primary-button>    
+                    <span class="text-white">o</span>
                     <a class="text-white w-full md:w-auto bg-green-600 hover:bg-yellow-500 px-4 py-2 rounded-md shadow-lg transition-all hover:scale-105 text-sm md:text-base text-center" href="{{ route('login') }}">
                         {{ __('Ya tengo una cuenta') }}
                     </a>
-                    <span class="text-white">o</span>
-                    <x-primary-button class="text-white font-sans w-full md:w-auto bg-green-600 hover:bg-yellow-500 px-4 py-2 rounded-md shadow-lg transition-all hover:scale-105 text-sm md:text-base">
-                        {{ __('Registrarse') }}
-                    </x-primary-button>
+                    
                 </div>
             </form>
         </div>
