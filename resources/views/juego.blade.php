@@ -60,7 +60,7 @@
         </a>
         <!-- Botón hamburguesa -->
         <button @click="open = !open"
-            class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 hover:bg-green-700 
+            class="inline-flex items-center justify-center p-2 text-yellow-300 hover:text-yellow-400 
             rounded-md focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200
             md:hidden" 
             :class="{ 'rotate-90': open }">
@@ -92,20 +92,6 @@
               </button>
             </form>
           @endauth
-          @guest
-            <a href="{{ route('login') }}"
-                class="text-white hover:text-yellow-300 transform hover:scale-105 transition-transform duration-200">
-              Iniciar Sesión
-            </a>
-            <a href="{{ route('register') }}"
-                class="text-white hover:text-yellow-300 transform hover:scale-105 transition-transform duration-200">
-              Registrarse
-            </a>
-            <a href="{{ route('juego') }}"
-                class="bg-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-200">
-              Jugar
-            </a>
-          @endguest
         </div>
       </div>
       <!-- Menú móvil-->
@@ -117,7 +103,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 -translate-y-4"
-        class="md:hidden mt-3 bg-green-700 rounded-lg shadow-inner overflow-hidden"
+        class="md:hidden mt-3 rounded-lg shadow-inner overflow-hidden"
       >
         <div class="flex flex-col divide-y divide-green-600">
           @auth
@@ -132,25 +118,7 @@
                 Cerrar Sesión
               </button>
             </form>
-            <a href="{{ route('juego') }}"
-                class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
-              Jugar
-            </a>
           @endauth
-          @guest
-            <a href="{{ route('login') }}"
-                class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
-              Iniciar Sesión
-            </a>
-            <a href="{{ route('register') }}"
-                class="w-full text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
-              Registrarse
-            </a>
-            <a href="{{ route('juego') }}"
-                class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
-              Jugar
-            </a>
-          @endguest
         </div>
       </div>
     </nav>
@@ -213,7 +181,7 @@
         <p id="results" class="text-center mt-4 text-lg font-semibold text-red-400"></p>
       </div>
       <!-- Resultado Final -->
-      <div id="resultado-final" class="max-w-4xl mx-auto bg-green-500 p-6 rounded-lg shadow-lg text-white text-center hidden animate-fade-in">
+      <div id="resultado-final" class="max-w-4xl mx-auto p-6 rounded-lg shadow-lg text-white text-center hidden animate-fade-in">
         <h2 class="text-2xl font-bold mb-4">Resultado Final</h2>
         <p id="resultado-mensaje" class="text-xl font-semibold text-yellow-300 mb-4"></p>
         <p class="text-lg">

@@ -1,3 +1,17 @@
+const sounds = {
+    hit:     new Audio('/juego/sounds/hit.mp3'),
+    cardf:   new Audio('/juego/sounds/card-flip.mp3'),
+    chip:     new Audio('/juego/sounds/chip.mp3'),
+    stand:   new Audio('/juegosounds/stand.mp3'),
+    double:  new Audio('/juegosounds/double.mp3'),
+    bet:     new Audio('/juego/sounds/bet.mp3'),
+    win:     new Audio('/juego/sounds/win.mp3'),
+    lose:    new Audio('/juegosounds/lose.mp3'),
+};
+Object.values(sounds).forEach(s => {
+    s.load();
+    s.volume = 0.5; 
+});
 const Juego = (() => {
     // ─── ESTADO DEL JUEGO ─────────────────────────────────────────────────────
     let mazo = [];
@@ -143,6 +157,7 @@ const Juego = (() => {
     }
 
     function addChipToBet(value, src) {
+        sounds.chip.play();
         if (apuestaSum + value > banca) return alert('Fondos insuficientes');
         apuestaSum += value;
         betChips.push(value);
@@ -246,6 +261,7 @@ const Juego = (() => {
         const img = document.createElement('img');
         img.src = valorImagen(carta);
         img.classList.add("w-16", "h-24", "rounded-lg");
+        sounds.cardf.play();
         if (contDiv.children.length > 0) img.style.marginLeft = '-5rem';
         img.classList.add('deal-anim');
         contDiv.appendChild(img);
@@ -255,6 +271,7 @@ const Juego = (() => {
     // ─── PEDIR / PLANTARSE ──────────────────────────────────────────────────────
     function pedirCarta() {
         if (!puedePedir) return;
+        sounds.hit.play();
         repartirCarta('your-cards', false);
         if (ajustarAs(sumaJugador, contadorAsJugador) > 21) {
         puedePedir = false;
@@ -265,14 +282,19 @@ const Juego = (() => {
     function plantarse() {
         puedePedir = false;
         mostrarOculta();
-        setTimeout(determinarResultado, 500);
+        setTimeout(determinarResultado, 2000);
     }
 
     function mostrarOculta() {
         const img = document.getElementById('hidden');
         img.classList.add('flip-anim');
-        setTimeout(() => img.src = valorImagen(cartaOculta), 6000);
-        setTimeout(() => img.classList.remove('flip-anim'), 7000);
+        sounds.cardf.play();
+        setTimeout(() => {
+            img.src = valorImagen(cartaOculta);
+        }, 600);
+        setTimeout(() => {
+            img.classList.remove('flip-anim');
+        }, 700); 
     }
 
     // ─── RESOLUCIÓN ─────────────────────────────────────────────────────────────
