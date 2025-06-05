@@ -67,6 +67,10 @@
                     class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
                 Inicio
                 </a>
+                <a href="{{ route('juego') }}"
+                    class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-600 transition-colors duration-200">
+                Jugar
+                </a>
                 <a href="{{ route('partidas') }}"
                     class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
                 Ver puntuaciones generales
@@ -78,10 +82,6 @@
                     Cerrar Sesión
                 </button>
                 </form>
-                <a href="{{ route('juego') }}"
-                    class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-600 transition-colors duration-200">
-                Jugar
-                </a>
             @endauth
             </div>
         </div>
@@ -105,6 +105,10 @@
                     class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Inicio
                 </a>
+                <a href="{{ route('juego') }}"
+                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
+                Jugar
+                </a>
                 <a href="{{ route('partidas') }}"
                     class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Ver puntuaciones generales
@@ -116,10 +120,6 @@
                     Cerrar Sesión
                 </button>
                 </form>
-                <a href="{{ route('juego') }}"
-                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
-                Jugar
-                </a>
             @endauth
             </div>
         </div>
@@ -131,38 +131,42 @@
             class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-6/12"
             />
         </section>
-        <div class="container mx-auto px-4 py-8">
-    <div class="neon-container ring-4 ring-yellow-400/70 backdrop-blur-md p-6">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-yellow-500 text-center py-6">
+        <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="neon-container p-4 md:p-8 shadow-2xl">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-yellow-400 text-center mb-6">
             🎯 Mis Partidas
-        </h2>
+            </h2>
 
-        <table class="min-w-full divide-y divide-yellow-300">
-            <thead>
-                <tr class="bg-yellow-200 text-yellow-900">
-                    <th class="px-3 py-2">Banca Final</th>
-                    <th class="px-3 py-2">Manos Jugadas</th>
-                    <th class="px-3 py-2">Ganadas</th>
-                    <th class="px-3 py-2">Perdidas</th>
+            <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-separate border-spacing-0">
+                <thead>
+                <tr class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 text-yellow-900">
+                    <th class="px-3 py-2 text-xs sm:text-sm md:text-base font-semibold border border-yellow-300">Banca Final</th>
+                    <th class="px-3 py-2 text-xs sm:text-sm md:text-base font-semibold border border-yellow-300">Manos Jugadas</th>
+                    <th class="px-3 py-2 text-xs sm:text-sm md:text-base font-semibold border border-yellow-300">Ganadas</th>
+                    <th class="px-3 py-2 text-xs sm:text-sm md:text-base font-semibold border border-yellow-300">Perdidas</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody class="divide-y divide-yellow-700">
                 @forelse($partidas as $partida)
-                    <tr class="text-center border-b border-yellow-200 hover:bg-yellow-100">
-                        <td class="px-3 py-2 text-green-300 font-bold">{{ $partida->banca_final }}</td>
-                        <td class="px-3 py-2 text-blue-300">{{ $partida->manos_jugadas }}</td>
-                        <td class="px-3 py-2 text-green-400">{{ $partida->ganadas }}</td>
-                        <td class="px-3 py-2 text-red-400">{{ $partida->perdidas }}</td>
+                    <tr class="bg-black bg-opacity-50 hover:bg-yellow-50 hover:bg-opacity-20 transition-colors duration-150">
+                    <td class="px-3 py-2 text-sm sm:text-base font-medium text-green-300 text-center">{{ $partida->banca_final }}</td>
+                    <td class="px-3 py-2 text-sm sm:text-base text-blue-300 text-center">{{ $partida->manos_jugadas }}</td>
+                    <td class="px-3 py-2 text-sm sm:text-base text-green-400 text-center">{{ $partida->ganadas }}</td>
+                    <td class="px-3 py-2 text-sm sm:text-base text-red-400 text-center">{{ $partida->perdidas }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center py-4 text-yellow-200">No tienes partidas registradas aún.</td>
+                    <td colspan="4" class="px-4 py-6 text-center text-yellow-200">
+                        Aún no has jugado ninguna partida.
+                    </td>
                     </tr>
                 @endforelse
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </main>
     </div>
-</div>
-
 </body>
 </html>
