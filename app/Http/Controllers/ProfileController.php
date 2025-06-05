@@ -60,7 +60,7 @@ class ProfileController extends Controller
     }
     public function miPuntuacion()
 {
-    $usuario = auth()->user();
+    $usuario = auth::user();
 
     // Obtener las partidas del usuario autenticado
     $partidas = Partida::where('user_id', $usuario->id)->orderByDesc('banca_final')->get();

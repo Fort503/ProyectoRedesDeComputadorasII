@@ -317,7 +317,12 @@ const Juego = (() => {
 
         apuestasTotales += apuesta;
         apuesta = 0;
-        mostrarResultadoFinal(msg);
+
+        if (banca <= 0 || partidasJugadas >= MAX_PARTIDAS) {
+            mostrarGameOver();
+        } else {
+            mostrarResultadoFinal(msg);
+        }
     }
 
     function mostrarResultadoFinal(mensaje) {
@@ -370,6 +375,7 @@ const Juego = (() => {
     // Limpia cartas, sumas, resultados, etc.
     document.getElementById('game-container').style.display = 'block';
     document.getElementById('resultado-final').style.display = 'none';
+    document.getElementById('game-over-panel').style.display = 'none';
     document.getElementById('dealer-cards').innerHTML = `<img src="${cardsUrl}BACK.png" id="hidden" …>`;
     document.getElementById('your-cards').innerHTML = '';
     document.getElementById('dealer-sum').innerText = '';
@@ -465,6 +471,34 @@ async function guardarPartida(redirigir = false, urlRedireccion = '/') {
     }
 }
 
+// ─── GAME OVER ──────────────────────────────────────────────────────
+function mostrarGameOver() {
+    document.getElementById('game-container').style.display = 'none';
+    document.getElementById('resultado-final').style.display = 'none';
+    
+    const gameOverPanel = document.getElementById('game-over-panel');
+    gameOverPanel.style.display = 'block';
+    let estado = Juego.obtenerEstado();
+    
+    // Configurar mensaje según la condición
+    let gameOverMessage = '';
+    if (estado.banca <= 0) {
+        gameOverMessage = '¡Te has quedado sin fondos!';
+    } else {
+        gameOverMessage = `¡Has completado las ${MAX_PARTIDAS} manos!`;
+    }
+    
+    document.getElementById('game-over-message').innerText = gameOverMessage;
+    document.getElementById('stats-wins').innerText = estado.ganadas;
+    document.getElementById('stats-losses').innerText = estado.perdidas;
+    document.getElementById('stats-ties').innerText = estado.empates;
+    document.getElementById('stats-bank').innerText = `$${estado.banca}`;
+    
+    // Deshabilitar botones de juego
+    document.getElementById('btn-restart').disabled = true;
+    document.getElementById('hit').disabled = true;
+    document.getElementById('stay').disabled = true;
+}
 
 // Arranca cuando la página esté lista
 window.addEventListener('load', () => {
@@ -478,6 +512,14 @@ window.addEventListener('load', () => {
 
     document.getElementById('btn-salir').addEventListener('click', () => {
         guardarPartida(true, '/');
+    });
+
+    document.getElementById('btn-game-over-exit').addEventListener('click', () => {
+        guardarPartida(true, '/');
+    });
+
+    document.getElementById('btn-game-over-restart').addEventListener('click', () => {
+        guardarPartida(true, '/play');
     });
 });
 
