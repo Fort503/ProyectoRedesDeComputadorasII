@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\Partida;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -57,4 +58,13 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function miPuntuacion()
+{
+    $usuario = auth()->user();
+
+    // Obtener las partidas del usuario autenticado
+    $partidas = Partida::where('user_id', $usuario->id)->orderByDesc('banca_final')->get();
+
+    return view('profile.mi-puntuacion', compact('partidas'));
+}
 }

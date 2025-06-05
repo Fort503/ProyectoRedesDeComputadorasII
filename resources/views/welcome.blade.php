@@ -21,7 +21,7 @@
 
                 <!-- Botón hamburguesa-->
                 <button @click="open = !open"
-                        class="md:hidden inline-flex items-center p-2 text-yellow-300 hover:text-yellow-400 hover:bg-green-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200"
+                        class="md:hidden inline-flex items-center p-2 text-yellow-300 hover:text-yellow-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-200 transition-all duration-200"
                         :class="{ 'rotate-90': open }">
                     <span class="sr-only">Abrir menú</span>
                     <svg class="w-6 h-6 transform transition-transform duration-200":class="{ 'rotate-90': open }"fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,14 +33,14 @@
                 <!-- Menú escritoriomedio -->
                 <div class="hidden md:flex items-center space-x-4">
                     @auth
-                        <span class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
+                        <a href="{{ route('mi.puntuacion') }}" class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
                             Hola, {{ Auth::user()->name }}
-                        </span>
+                        </a>
                         <a href="{{ route('juego') }}"class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-200 transform hover:scale-105">
                             Jugar
                         </a>
                         <a href="{{ route('partidas') }}"class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors duration-200 transform hover:scale-105">
-                            Ver puntuaciones
+                            Ver puntuaciones generales
                         </a>
                         <form method="POST" action="{{ route('logout') }}" class="inline">
                             @csrf
@@ -77,20 +77,20 @@
                 >
                     <div class="flex flex-col divide-y divide-yellow-500">
                         @auth
-                            <span class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                            <a href="{{ route('mi.puntuacion') }}" class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
                                 Hola, {{ Auth::user()->name }}
-                            </span>
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                        class="text-yellow-300 block w-full text-left px-4 py-3 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                                        class="text-yellow-300 block w-full text-left px-4 py-3 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
                                     Cerrar Sesión
                                 </button>
                             </form>
-                            <a href="{{ route('partidas') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
-                                Ver puntuaciones
+                            <a href="{{ route('partidas') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
+                                Ver puntuaciones generales
                             </a>
-                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
                                 Jugar
                             </a>
                         @endauth

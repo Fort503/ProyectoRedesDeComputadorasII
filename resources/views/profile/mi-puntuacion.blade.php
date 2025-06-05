@@ -60,12 +60,16 @@
             <!-- Menú de escritorio -->
             <div class="hidden md:flex items-center space-x-4">
             @auth
-                <a href="{{ route('mi.puntuacion') }}" class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
+                <span class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
                 Hola, {{ Auth::user()->name }}
-                </a>
+                </span>
                 <a href="{{ route('welcome') }}"
                     class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
                 Inicio
+                </a>
+                <a href="{{ route('partidas') }}"
+                    class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
+                Ver puntuaciones generales
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -94,13 +98,16 @@
         >
             <div class="flex flex-col divide-y divide-green-600">
             @auth
-                <a href="{{ route('mi.puntuacion') }}"
-                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
+                <span class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Hola, {{ Auth::user()->name }}
-                </a>
+                </span>
                 <a href="{{ route('welcome') }}"
                     class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Inicio
+                </a>
+                <a href="{{ route('partidas') }}"
+                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
+                Ver puntuaciones generales
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -125,36 +132,37 @@
             />
         </section>
         <div class="container mx-auto px-4 py-8">
-            <div class="overflow-x-auto">
-            <div class="rounded-xl shadow-2xl backdrop-blur">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-yellow-400 text-center py-6 tracking-wide drop-shadow-lg">
-                🏆 Top 10 Mejores Partidas
-                </h2>
-                <table class="min-w-full divide-y divide-yellow-300">
-                <thead>
-                    <tr class="bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 text-yellow-900">
-                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Jugador</th>
-                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Banca Final</th>
-                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Manos Jugadas</th>
-                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Ganadas</th>
-                    <th class="px-3 py-2 text-xs md:text-base font-bold border-b border-yellow-300">Perdidas</th>
+    <div class="neon-container ring-4 ring-yellow-400/70 backdrop-blur-md p-6">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-yellow-500 text-center py-6">
+            🎯 Mis Partidas
+        </h2>
+
+        <table class="min-w-full divide-y divide-yellow-300">
+            <thead>
+                <tr class="bg-yellow-200 text-yellow-900">
+                    <th class="px-3 py-2">Banca Final</th>
+                    <th class="px-3 py-2">Manos Jugadas</th>
+                    <th class="px-3 py-2">Ganadas</th>
+                    <th class="px-3 py-2">Perdidas</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($partidas as $partida)
+                    <tr class="text-center border-b border-yellow-200 hover:bg-yellow-100">
+                        <td class="px-3 py-2 text-green-300 font-bold">{{ $partida->banca_final }}</td>
+                        <td class="px-3 py-2 text-blue-300">{{ $partida->manos_jugadas }}</td>
+                        <td class="px-3 py-2 text-green-400">{{ $partida->ganadas }}</td>
+                        <td class="px-3 py-2 text-red-400">{{ $partida->perdidas }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($partidas as $partida)
-                    <tr class="text-center border-b border-yellow-200 hover:bg-yellow-50 transition-colors duration-150">
-                        <td class="px-3 py-2 text-sm md:text-base font-semibold text-yellow-300">{{ $partida->user->name }}</td>
-                        <td class="px-3 py-2 text-sm md:text-base text-green-300 font-bold">{{ $partida->banca_final }}</td>
-                        <td class="px-3 py-2 text-sm md:text-base text-blue-300">{{ $partida->manos_jugadas }}</td>
-                        <td class="px-3 py-2 text-sm md:text-base text-green-300 font-semibold">{{ $partida->ganadas }}</td>
-                        <td class="px-3 py-2 text-sm md:text-base text-red-300 font-semibold">{{ $partida->perdidas }}</td>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-yellow-200">No tienes partidas registradas aún.</td>
                     </tr>
-                    @endforeach
-                </tbody>
-                </table>
-            </div>
-            </div>
-        </div>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+</div>
+
 </body>
 </html>

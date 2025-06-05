@@ -23,4 +23,5 @@ require __DIR__.'/auth.php';
     Route::get('/play', [JuegoController::class, 'index'])->name('juego');
     Route::post('/guardar-partida', [JuegoController::class, 'guardarPartida'])->middleware('auth');
     Route::get('/partidas', [PartidaController::class, 'mejoresPartidas'])->name('partidas');
+    Route::get('/mi-puntuacion', [ProfileController::class, 'miPuntuacion'])->name('mi.puntuacion');
 });

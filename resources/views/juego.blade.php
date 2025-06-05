@@ -77,12 +77,16 @@
         <!-- Menú de escritorio -->
         <div class="hidden md:flex items-center space-x-4">
           @auth
-            <span class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
+            <a href="{{ route('mi.puntuacion') }}" class="text-white font-semibold transition-transform duration-200 transform hover:scale-105">
               Hola, {{ Auth::user()->name }}
-            </span>
+            </a>
             <a href="{{ route('welcome') }}"
                 class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
               Inicio
+            </a>
+            <a href="{{ route('partidas') }}"
+                class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
+              Ver puntuaciones generales
             </a>
             <form method="POST" action="{{ route('logout') }}">
               @csrf
@@ -107,9 +111,16 @@
       >
         <div class="flex flex-col divide-y divide-green-600">
           @auth
-            <a href="{{ route('welcome') }}"
+            <a href="{{ route('mi.puntuacion') }}"
+                class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
+              Hola, {{ Auth::user()->name }}
+            </a>
+            <a href="{{ route('partidas') }}"
                 class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
               Inicio
+            </a><a href="{{ route('welcome') }}"
+                class="text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-102">
+              Ver puntuaciones generales
             </a>
             <form method="POST" action="{{ route('logout') }}">
               @csrf
