@@ -444,8 +444,16 @@ const Juego = (() => {
 
 // ─── FUNCIÓN PARA GUARDAR PARTIDA ────────────────────────────────────────────
 async function guardarPartida(redirigir = false, urlRedireccion = '/') {
-    const estado = Juego.obtenerEstado(); 
+    const estado = Juego.obtenerEstado();
     
+    // Solo guardar si se ha jugado al menos una partida
+    if (estado.partidasJugadas === 0) {
+        if (redirigir) {
+            window.location.href = urlRedireccion;
+        }
+        return;
+    }
+
     const loader = document.createElement('div');
     loader.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
     loader.innerHTML = '<div class="bg-white p-4 rounded-lg"><p>Guardando partida...</p></div>';
@@ -467,12 +475,11 @@ async function guardarPartida(redirigir = false, urlRedireccion = '/') {
                 apuestas_totales: estado.apuestasTotales,
                 apuestas_ganadas: estado.apuestasGanadas,
                 apuestas_perdidas: estado.apuestasPerdidas
-            })
+            }),
+            keepalive: true
         });
 
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Error HTTP:', response.status, errorText);
             throw new Error('Error en la respuesta del servidor');
         }
 
@@ -489,9 +496,27 @@ async function guardarPartida(redirigir = false, urlRedireccion = '/') {
         return data;
     } catch (error) {
         console.error('Error al guardar partida:', error);
-        throw error;
+        // Intenta usar sendBeacon como último recurso
+        const blob = new Blob([JSON.stringify({
+            partidas_jugadas: estado.partidasJugadas,
+            ganadas: estado.ganadas,
+            perdidas: estado.perdidas,
+            empates: estado.empates,
+            banca_final: estado.banca,
+            apuestas_totales: estado.apuestasTotales,
+            apuestas_ganadas: estado.apuestasGanadas,
+            apuestas_perdidas: estado.apuestasPerdidas,
+            _token: document.querySelector('meta[name="csrf-token"]').content
+        })], {type: 'application/json'});
+        navigator.sendBeacon('/guardar-partida', blob);
+        
+        if (redirigir) {
+            window.location.href = urlRedireccion;
+        }
     } finally {
-        document.body.removeChild(loader);
+        if (document.body.contains(loader)) {
+            document.body.removeChild(loader);
+        }
     }
 }
 
@@ -549,6 +574,36 @@ function deshabilitarTodosBotones() {
     btnDoblar.classList.add('hidden');
 }
 
+// ─── FUNCIONES PARA MANEJAR EL CIERRE ────────────────────────────────────────
+function handleBeforeUnload(e) {
+    const estado = Juego.obtenerEstado();
+    if (estado.partidasJugadas > 0) {
+        guardarPartida(false).catch(console.error);
+        e.preventDefault();
+        e.returnValue = '¿Estás seguro de que quieres salir? Tu progreso se guardará.';
+        return e.returnValue;
+    }
+}
+
+function handleUnload() {
+    const estado = Juego.obtenerEstado();
+    if (estado.partidasJugadas > 0) {
+        const data = {
+            partidas_jugadas: estado.partidasJugadas,
+            ganadas: estado.ganadas,
+            perdidas: estado.perdidas,
+            empates: estado.empates,
+            banca_final: estado.banca,
+            apuestas_totales: estado.apuestasTotales,
+            apuestas_ganadas: estado.apuestasGanadas,
+            apuestas_perdidas: estado.apuestasPerdidas,
+            _token: document.querySelector('meta[name="csrf-token"]').content
+        };
+        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        navigator.sendBeacon('/guardar-partida', blob);
+    }
+}
+
 
 // Arranca cuando la página esté lista
 window.addEventListener('load', () => {
@@ -571,5 +626,10 @@ window.addEventListener('load', () => {
     document.getElementById('btn-game-over-restart').addEventListener('click', () => {
         guardarPartida(true, '/play');
     });
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('unload', handleUnload);
+
+    
 });
 
