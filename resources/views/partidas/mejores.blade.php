@@ -67,6 +67,10 @@
                     class="text-white bg-yellow-500 px-4 py-2 rounded-lg hover:text-yellow-300 transition-colors duration-200">
                 Inicio
                 </a>
+                <a href="{{ route('juego') }}"
+                    class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-600 transition-colors duration-200">
+                Jugar
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
@@ -74,10 +78,6 @@
                     Cerrar Sesión
                 </button>
                 </form>
-                <a href="{{ route('juego') }}"
-                    class="bg-yellow-500 px-4 py-2 rounded-lg text-white hover:bg-yellow-600 transition-colors duration-200">
-                Jugar
-                </a>
             @endauth
             </div>
         </div>
@@ -102,6 +102,10 @@
                     class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
                 Inicio
                 </a>
+                <a href="{{ route('juego') }}"
+                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
+                Jugar
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
@@ -109,10 +113,6 @@
                     Cerrar Sesión
                 </button>
                 </form>
-                <a href="{{ route('juego') }}"
-                    class="text-left px-4 py-3 text-yellow-300 hover:bg-blue-600 transition-colors duration-150 transform hover:scale-102">
-                Jugar
-                </a>
             @endauth
             </div>
         </div>

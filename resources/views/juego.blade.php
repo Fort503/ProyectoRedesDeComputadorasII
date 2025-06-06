@@ -134,23 +134,33 @@
       </div>
     </nav>
       <section class="hero-texts container mx-auto mt-6">
-        <img
-          src="{{ asset('juego/texts/USO BlackJack.png') }}"
-          alt="USO BlackJack"
-          class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-6/12"
-        />
-
-              <div class="fixed top-12 right-4 bg-black bg-opacity-70 text-white p-3 rounded-lg">
-                <div class="flex items-center gap-2">
-                  <span class="font-bold">Partidas:</span>
-                  <div class="flex gap-1">
-                    @for($i = 1; $i <= 5; $i++)
-                      <div class="w-4 h-4 rounded-full {{ $i <= auth()->user()->games_played ? 'bg-red-500' : 'bg-gray-500' }}"></div>
-                    @endfor
-                  </div>
-                  <span>{{ auth()->user()->games_played }}/5</span>
-                </div>
-              </div>
+        <div class="flex flex-col items-center md:flex-row md:items-center md:justify-center gap-6">
+          <!-- Imagen de cabecera -->
+          <div class="flex justify-center w-full">
+            <img
+              src="{{ asset('juego/texts/USO BlackJack.png') }}"
+              alt="USO BlackJack"
+              class="mx-auto w-11/12 sm:w-3/4 md:w-2/5 lg:w-1/3"
+            />
+          </div>
+        </div>
+        <div class="w-full md:w-auto flex justify-center md:justify-end">
+          <div class="bg-black bg-opacity-60 backdrop-blur-sm p-4 rounded-lg shadow-lg border-2 border-yellow-400 text-center w-40">
+            <span class="text-yellow-300 font-bold uppercase tracking-wider text-sm">Manos</span>
+            <div class="flex justify-center gap-1 my-2">
+              @for($i = 1; $i <= 5; $i++)
+                <div
+                  class="w-4 h-4 rounded-full transition-colors duration-200
+                    {{ $i <= auth()->user()->games_played
+                        ? 'bg-red-500 shadow-xl shadow-red-500/50'
+                        : 'bg-gray-600' }}"></div>
+              @endfor
+            </div>
+            <span class="text-white font-semibold text-base">
+              {{ auth()->user()->games_played }}/5
+            </span>
+          </div>
+        </div>
       </section>
 
       <!-- Sección del juego -->
@@ -247,33 +257,43 @@
         </section>
       </div>
       <!-- Game Over Panel -->
-      <div id="game-over-panel" class="hidden fixed inset-0 items-center justify-center z-50 bg-black bg-opacity-75 p-4 overflow-auto">
-          <div class="flex flex-col items-center justify-center min-h-full w-full">
-              <div class="max-w-4xl w-full mx-auto p-6 rounded-lg shadow-lg text-white text-center bg-green-800 border-2 border-yellow-400 my-auto">
-                  <h2 class="text-3xl font-bold mb-4 text-yellow-300">¡GAME OVER!</h2>
-                  <p id="game-over-message" class="text-xl mb-6"></p>
-                  
-                  <div class="mb-6 text-yellow-100 bg-green-700 p-4 rounded-lg">
-                      <p class="font-semibold mb-2 text-xl">Estadísticas finales:</p>
-                      <div class="text-lg space-y-2">
-                          <p>Partidas ganadas: <span id="stats-wins" class="text-yellow-300 font-bold">0</span></p>
-                          <p>Partidas perdidas: <span id="stats-losses" class="text-yellow-300 font-bold">0</span></p>
-                          <p>Empates: <span id="stats-ties" class="text-yellow-300 font-bold">0</span></p>
-                          <p class="pt-2">Banca final: <span id="stats-bank" class="text-2xl text-yellow-400 font-bold">$0</span></p>
-                      </div>
-                  </div>
+      <div id="game-over-panel" class="hidden fixed inset-0 items-center justify-center z-50 bg-black bg-opacity-75 p-12">
+          <div class="flex flex-col items-center justify-center min-h-full w-full  bg-green-900 bg-opacity-95 rounded-xl shadow-2xl border-4 border-green-500 relative max-w-lg mx-auto p-6">
 
-                  <div class="flex flex-col sm:flex-row justify-center gap-4">
-                      <button id="btn-game-over-restart" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-lg transition-colors duration-300">
-                          Jugar otra vez
-                      </button>
-                      <button id="btn-game-over-exit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300">
-                          Salir
-                      </button>
-                  </div>
+          <div class="text-center text-white">
+            <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">
+              ¡GAME OVER!
+            </h2>
+            <p id="game-over-message" class="text-lg mb-6"></p>
+
+            <div class="bg-green-800 bg-opacity-80 p-4 rounded-lg mb-6">
+              <p class="font-semibold text-green-300 text-xl mb-3">Estadísticas finales</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-white">
+                <div>
+                  <p>Partidas ganadas: <span id="stats-wins" class="font-bold text-yellow-300">0</span></p>
+                  <p>Partidas perdidas: <span id="stats-losses" class="font-bold text-red-400">0</span></p>
+                </div>
+                <div>
+                  <p>Empates: <span id="stats-ties" class="font-bold text-yellow-300">0</span></p>
+                  <p>Banca final: <span id="stats-bank" class="text-2xl font-bold text-yellow-400">$0</span></p>
+                </div>
               </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button id="btn-game-over-restart"
+                      class="w-full sm:w-auto flex-1 bg-green-500 hover:bg-green-600 text-gray-900 font-bold py-2 px-6 rounded-lg shadow-md transition">
+                Jugar otra vez
+              </button>
+              <button id="btn-game-over-exit"
+                      class="w-full sm:w-auto flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transition">
+                Salir
+              </button>
+            </div>
           </div>
+        </div>
       </div>
+
   <script src="{{ asset('juego/main.js') }}"></script>
 </body>
 </html>

@@ -80,6 +80,9 @@
                             <a href="{{ route('mi.puntuacion') }}" class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
                                 Hola, {{ Auth::user()->name }}
                             </a>
+                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
+                                Jugar
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -89,9 +92,6 @@
                             </form>
                             <a href="{{ route('partidas') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
                                 Ver puntuaciones generales
-                            </a>
-                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-red-600 transition-colors duration-150 transform hover:scale-105">
-                                Jugar
                             </a>
                         @endauth
 
