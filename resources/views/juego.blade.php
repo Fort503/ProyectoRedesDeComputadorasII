@@ -146,7 +146,7 @@
         </div>
         <div class="w-full md:w-auto flex justify-center md:justify-end">
           <div class="bg-black bg-opacity-60 backdrop-blur-sm p-4 rounded-lg shadow-lg border-2 border-yellow-400 text-center w-40">
-            <span class="text-yellow-300 font-bold uppercase tracking-wider text-sm">Partidas restantes</span>
+            <span class="text-yellow-300 font-bold uppercase tracking-wider text-sm">Partidas</span>
             <div class="flex justify-center gap-1 my-2">
               @for($i = 1; $i <= 5; $i++)
                 <div
