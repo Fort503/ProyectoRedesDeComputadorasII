@@ -21,6 +21,7 @@ const Juego = (() => {
     let puedePedir = true;
     let betsBound = false; 
     let hitHandler, stayHandler;
+     const MAX_PARTIDAS = 5;
 
     // ─── ESTADO DE APUESTAS ────────────────────────────────────────────────────
     let banca = 1000;
@@ -33,7 +34,6 @@ const Juego = (() => {
     let ganadas = 0, perdidas = 0, empates = 0;
     let apuestasTotales = 0, apuestasGanadas = 0, apuestasPerdidas = 0;
     let partidasJugadas = 0;
-    const MAX_PARTIDAS = 5;
 
     // ─── CONSTANTES ─────────────────────────────────────────────────────────────
     const VALORES     = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
@@ -478,6 +478,7 @@ function mostrarGameOver() {
     
     const gameOverPanel = document.getElementById('game-over-panel');
     gameOverPanel.style.display = 'block';
+    
     let estado = Juego.obtenerEstado();
     
     // Configurar mensaje según la condición
@@ -485,10 +486,12 @@ function mostrarGameOver() {
     if (estado.banca <= 0) {
         gameOverMessage = '¡Te has quedado sin fondos!';
     } else {
-        gameOverMessage = `¡Has completado las ${MAX_PARTIDAS} manos!`;
+        gameOverMessage = `¡Has completado las ${estado.partidasJugadas} manos!`;
     }
     
     document.getElementById('game-over-message').innerText = gameOverMessage;
+    
+    // Mostrar todas las estadísticas
     document.getElementById('stats-wins').innerText = estado.ganadas;
     document.getElementById('stats-losses').innerText = estado.perdidas;
     document.getElementById('stats-ties').innerText = estado.empates;

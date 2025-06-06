@@ -235,30 +235,31 @@
       </div>
       <!-- Game Over Panel -->
       <div id="game-over-panel" class="hidden fixed inset-0 items-center justify-center z-50 bg-black bg-opacity-75 p-4 overflow-auto">
-        <div class="flex flex-col items-center justify-center min-h-full w-full">
-          <div class="max-w-4xl w-full mx-auto p-6 rounded-lg shadow-lg text-white text-center bg-green-800 border-2 border-yellow-400 my-auto">
-            <h2 class="text-3xl font-bold mb-4 text-yellow-300">¡GAME OVER!</h2>
-            
-            <div class="mb-6 text-yellow-100 bg-green-700 p-4 rounded-lg">
-              <p class="font-semibold mb-2 text-xl">Estadísticas finales:</p>
-              <div class="text-lg space-y-2">
-                <p>Partidas ganadas: <span id="stats-wins" class="text-yellow-300 font-bold">0</span></p>
-                <p>Partidas perdidas: <span id="stats-losses" class="text-yellow-300 font-bold">0</span></p>
-                <p>Empates: <span id="stats-ties" class="text-yellow-300 font-bold">0</span></p>
-                <p class="pt-2">Banca final: <span id="stats-bank" class="text-2xl text-yellow-400 font-bold">$0</span></p>
-              </div>
-            </div>
+          <div class="flex flex-col items-center justify-center min-h-full w-full">
+              <div class="max-w-4xl w-full mx-auto p-6 rounded-lg shadow-lg text-white text-center bg-green-800 border-2 border-yellow-400 my-auto">
+                  <h2 class="text-3xl font-bold mb-4 text-yellow-300">¡GAME OVER!</h2>
+                  <p id="game-over-message" class="text-xl mb-6"></p>
+                  
+                  <div class="mb-6 text-yellow-100 bg-green-700 p-4 rounded-lg">
+                      <p class="font-semibold mb-2 text-xl">Estadísticas finales:</p>
+                      <div class="text-lg space-y-2">
+                          <p>Partidas ganadas: <span id="stats-wins" class="text-yellow-300 font-bold">0</span></p>
+                          <p>Partidas perdidas: <span id="stats-losses" class="text-yellow-300 font-bold">0</span></p>
+                          <p>Empates: <span id="stats-ties" class="text-yellow-300 font-bold">0</span></p>
+                          <p class="pt-2">Banca final: <span id="stats-bank" class="text-2xl text-yellow-400 font-bold">$0</span></p>
+                      </div>
+                  </div>
 
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-              <button id="btn-game-over-restart" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-lg transition-colors duration-300">
-                Jugar otra vez
-              </button>
-              <button id="btn-game-over-exit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300">
-                Salir
-              </button>
-            </div>
+                  <div class="flex flex-col sm:flex-row justify-center gap-4">
+                      <button id="btn-game-over-restart" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-6 rounded-lg transition-colors duration-300">
+                          Jugar otra vez
+                      </button>
+                      <button id="btn-game-over-exit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300">
+                          Salir
+                      </button>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
   <script src="{{ asset('juego/main.js') }}"></script>
 </body>
