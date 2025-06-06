@@ -96,13 +96,13 @@
                         @endauth
 
                         @guest
-                            <a href="{{ route('login') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                            <a href="{{ route('login') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-black/30 transition-colors duration-150 transform hover:scale-105">
                                 Iniciar Sesión
                             </a>
-                            <a href="{{ route('register') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                            <a href="{{ route('register') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-black/30 transition-colors duration-150 transform hover:scale-105">
                                 Registrarse
                             </a>
-                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-green-600 transition-colors duration-150 transform hover:scale-105">
+                            <a href="{{ route('juego') }}"class="block text-left px-4 py-3 text-yellow-300 hover:bg-black/30 transition-colors duration-150 transform hover:scale-105">
                                 Jugar
                             </a>
                         @endguest
