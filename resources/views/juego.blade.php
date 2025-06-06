@@ -139,7 +139,20 @@
           alt="USO BlackJack"
           class="mx-auto w-10/12 sm:w-8/12 md:w-6/12 lg:w-6/12"
         />
+
+              <div class="fixed top-12 right-4 bg-black bg-opacity-70 text-white p-3 rounded-lg">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold">Partidas:</span>
+                  <div class="flex gap-1">
+                    @for($i = 1; $i <= 5; $i++)
+                      <div class="w-4 h-4 rounded-full {{ $i <= auth()->user()->games_played ? 'bg-red-500' : 'bg-gray-500' }}"></div>
+                    @endfor
+                  </div>
+                  <span>{{ auth()->user()->games_played }}/5</span>
+                </div>
+              </div>
       </section>
+
       <!-- Sección del juego -->
       <div id="game-container" class="max-w-4xl mx-auto p-6 rounded-lg text-white animate-fade-in flex flex-col items-center">
         <!-- Sección del Crupier -->

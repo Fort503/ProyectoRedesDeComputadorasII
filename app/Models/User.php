@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'games_played' 
     ];
 
     /**
@@ -48,6 +49,16 @@ class User extends Authenticatable
 
     public function partidas() {
         return $this->hasMany(Partida::class);
+    }
+
+    public function puedeJugar()
+    {
+        return $this->games_played < 5;
+    }
+
+    public function incrementarContador()
+    {
+        $this->increment('games_played');
     }
 
 }

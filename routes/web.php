@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JuegoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PartidaController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,4 +25,9 @@ require __DIR__.'/auth.php';
     Route::post('/guardar-partida', [JuegoController::class, 'guardarPartida'])->middleware('auth');
     Route::get('/partidas', [PartidaController::class, 'mejoresPartidas'])->name('partidas');
     Route::get('/mi-puntuacion', [ProfileController::class, 'miPuntuacion'])->name('mi.puntuacion');
+    Route::get('/partidas-restantes', function() {
+    return response()->json([
+        'partidas_restantes' => 5 - Auth::user()->games_played
+    ]);
+    })->middleware('auth');
 });

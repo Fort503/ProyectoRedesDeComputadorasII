@@ -82,6 +82,30 @@ const Juego = (() => {
         // Añade los nuevos listeners
         hitBtn.addEventListener('click', hitHandler);
         stayBtn.addEventListener('click', stayHandler);
+
+        fetch('/partidas-restantes')
+            .then(response => response.json())
+            .then(data => {
+                if (data.partidas_restantes <= 0) {
+                    deshabilitarTodosBotones();
+                    console.log('No quedan partidas disponibles');
+                    document.getElementById('game-container').innerHTML = `
+                        <div class="p-6 rounded-lg max-w-3xl mx-auto mt-10 transition-shadow duration-300 bg-black/30 border border-white backdrop-blur-sm text-center">
+                            <h2 class="text-3xl font-bold text-yellow-300 mb-4">¡Juego terminado!</h2>
+                            <p class="text-lg text-yellow-200 mb-6">Has alcanzado el límite de partidas disponibles. Gracias por jugar.</p>
+                            <a href="/" class="inline-block bg-yellow-400 hover:bg-yellow-500 transition-colors text-black font-semibold px-6 py-3 rounded-lg shadow-md">
+                                Volver al inicio
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                apuestaSum = 0;
+                betChips = [];
+                renderBetChips();
+            });
+
     }
 
     // ─── FUNCIONES DE MAZO ─────────────────────────────────────────────────────
@@ -502,6 +526,29 @@ function mostrarGameOver() {
     document.getElementById('hit').disabled = true;
     document.getElementById('stay').disabled = true;
 }
+
+// Nueva función para deshabilitar todos los botones
+function deshabilitarTodosBotones() {
+    // Botones de acción del juego
+    document.getElementById('hit').disabled = true;
+    document.getElementById('stay').disabled = true;
+    document.getElementById('btn-double-bet').disabled = true;
+    document.getElementById('btn-confirm-bet').disabled = true;
+    document.getElementById('btn-restart').disabled = true;
+    document.getElementById('bet-panel').classList.add('hidden');
+    
+    // Botones de apuestas (fichas)
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip => {
+        chip.style.pointerEvents = 'none';
+        chip.style.opacity = '0.5';
+    });
+    
+    // Botón de doblar
+    const btnDoblar = document.getElementById('btn-double-bet');
+    btnDoblar.classList.add('hidden');
+}
+
 
 // Arranca cuando la página esté lista
 window.addEventListener('load', () => {
