@@ -16,7 +16,7 @@
 
                 <!-- Logo -->
                 <a href="{{ route('welcome') }}" class="text-2xl font-bold text-yellow-300 hover:text-yellow-400 transition-colors duration-300 ease-in-out">
-                    Blackjack
+                     capibarajack
                 </a>
 
                 <!-- Botón hamburguesa-->
